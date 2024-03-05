@@ -34,7 +34,7 @@ const Authentification = () => {
                     <p className="mt-4 text-white">Vous n&#39;avez pas de compte ? <Link to="/register" className="text-blue-300 hover:text-blue-400">Inscrivez-vous</Link></p>
                 </div>
             </div>
-            <Footer textColor="#eee" copyright="&copy; Minds Merge - 2024" />
+            <Footer textColor="#eee" copyright="&copy; < Minds Merge /> - 2024" />
         </div>
     );
 }
