@@ -9,7 +9,10 @@ const Chatbot = () => {
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/history")
-      .then((response) => setHistory(response.data.history))
+      .then((response) => {
+        console.log("Fetched history:", response.data.history);
+        setHistory(response.data.history);
+      })
       .catch((error) => console.error(error));
   }, []);
 
@@ -19,6 +22,12 @@ const Chatbot = () => {
         prompt,
       });
       setResponse(result.data.response);
+
+      // Mettre à jour l'historique après chaque nouvelle réponse générée
+      setHistory((prevHistory) => [
+        ...prevHistory,
+        { question: prompt, response: result.data.response },
+      ]);
     } catch (error) {
       console.error(error);
     }
@@ -35,13 +44,12 @@ const Chatbot = () => {
         <button onClick={handleGenerateResponse}>Envoyer</button>
       </div>
       <div>
-        <p>Response: {response}</p>
-      </div>
-      <div>
-        <h2>History:</h2>
         <ul>
           {history.map((item, index) => (
-            <li key={index}>{item}</li>
+            <li key={index}>
+              <strong>Question:</strong> {item.question} <br />
+              <strong>Response:</strong> {item.response}
+            </li>
           ))}
         </ul>
       </div>
