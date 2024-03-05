@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import Lottie from 'lottie-react';
+import LoginAnimation from '../assets/Lotties/login-animation.json';
 import Footer from "../components/Footer";
 
 const Inscription = () => {
@@ -12,7 +14,19 @@ const Inscription = () => {
 
     return (
         <div className="bg-gradient-to-r from-purple-700 to-blue-800 min-h-screen flex flex-col">
-            <div className="flex-grow flex justify-center items-center">
+            <div className="flex-grow flex justify-center items-center space-x-8">
+                <div className='relative md:w-[40%] sm:w-[40%]'>
+                    <p className="absolute flex items-center xl:text-4xl sm:block xs:block mt-10 text-white text-opacity-50 backdrop-blur-lg">Découvrez la technologie differemment.</p>
+                    <div className={`relative xl:w-[100%] lg:w-[100%] md:w-[100%] sm:block xs:block`}>
+                        <Lottie
+                            animationData={LoginAnimation}
+                            loop={true}
+                            autoplay={true}
+                            className="w-full h-auto"
+                        />
+                    </div>
+                    <p className="absolute flex items-center xl:text-4xl sm:block -mt-20 text-white text-opacity-50 backdrop-blur-lg">Au delà de votre imagination.</p>
+                </div>
                 <div className="md:bg-white md:bg-opacity-20 sm:bg-transparent backdrop-blur-lg rounded-lg p-8 max-w-md relative w-full md:w-auto">
                     <h2 className="text-3xl font-bold text-white mb-4">Inscrivez-vous</h2>
                     <hr className="border-t border-white border-opacity-50 mb-2" />
