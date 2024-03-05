@@ -2,8 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import { createBrowserRouter, RouterProvider  } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Authentification from './pages/Authentification.jsx';
+import Inscription from './pages/Inscription.jsx';
 
 const router = createBrowserRouter([
   {
@@ -12,7 +13,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: <Authentification/>
+    element: <Authentification />
+  },
+  {
+    path: '/sign-up',
+    element: <Inscription/>
   }
 ]);
 
