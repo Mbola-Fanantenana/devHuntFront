@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import Footer from "../components/Footer";
 import axios from "axios";
-import config from '../../config.json'
+import config from '../../config.json';
+import Lottie from 'lottie-react';
+import LoginAnimation from '../assets/Lotties/login-animation.json';
 
 
 const Authentification = () => {
@@ -52,12 +54,24 @@ const Authentification = () => {
     return (
         <div className="bg-gradient-to-r from-purple-700 to-blue-800 min-h-screen flex flex-col">
             <div className="flex-grow flex justify-center items-center">
+                <div className='relative md:w-[40%] sm:w-[40%]'>
+                    <p className="absolute flex items-center xl:text-4xl sm:block xs:block mt-10 text-white text-opacity-50 backdrop-blur-lg">Découvrez la technologie differemment.</p>
+                    <div className={`relative xl:w-[100%] lg:w-[100%] md:w-[100%] sm:block xs:block`}>
+                        <Lottie
+                            animationData={LoginAnimation}
+                            loop={true}
+                            autoplay={true}
+                            className="w-full h-auto"
+                        />
+                    </div>
+                    <p className="absolute flex items-center xl:text-4xl sm:block -mt-20 text-white text-opacity-50 backdrop-blur-lg">Au delà de votre imagination.</p>
+                </div>
                 <div className="md:bg-white md:bg-opacity-20 sm:bg-transparent backdrop-blur-lg rounded-lg p-8 max-w-md relative w-full md:w-auto">
                     <h2 className="text-3xl font-bold text-white mb-4">Connectez-vous</h2>
                     <hr className="border-t border-white border-opacity-50 mb-2" />
                     <form>
                         <div className="mb-4">
-                            <label htmlFor="email" className="text-white block mb-1">Adresse email</label>
+                            <label htmlFor="email" className="text-white block mb-1">Nom d&#39;utilisateur</label>
                             <input
                                 className="w-full px-4 py-2 rounded-md bg-white bg-opacity-50 focus:outline-none focus:bg-opacity-75"
                                 name="pseudoUtilisateur"
@@ -97,7 +111,7 @@ const Authentification = () => {
                 </div>
             </div>
             <Footer textColor="#eee" copyright="&copy; < Minds Merge /> - 2024" />
-        </div>
+        </div >
     );
 }
 
