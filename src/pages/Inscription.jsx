@@ -53,7 +53,6 @@ const Inscription = () => {
         })
     }
 
-
     return (
         <div className="bg-gradient-to-r from-purple-700 to-blue-800 min-h-screen flex flex-col">
             <div className="flex-grow flex justify-center items-center space-x-8">
