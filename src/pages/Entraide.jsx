@@ -98,7 +98,7 @@ const Entraide = () => {
   return (
     <>
       <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg">
-        <div className="max-w-2xl">
+        <div className="max-w-full">
           <h2 className="text-3xl font-bold tracking-tight text-[#007a55] sm:text-4xl">
             Meet our leadership
           </h2>
