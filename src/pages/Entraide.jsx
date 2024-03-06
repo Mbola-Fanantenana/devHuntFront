@@ -135,9 +135,9 @@ const Entraide = () => {
             >
                 <form>
                     <div className="mb-4">
-                        <label htmlFor="email" className="text-black block mb-1">Chef du club</label>
+                        <label htmlFor="email" className="block mb-1 text-black">Chef du club</label>
                         <input
-                            className="w-full px-4 py-2 rounded-md bg-white bg-opacity-50 focus:outline-none focus:bg-opacity-75"
+                            className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                             name="chefEntraide"
                             id="chefEntraide"
                             onChange={handleInputChange}
@@ -145,9 +145,9 @@ const Entraide = () => {
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="email" className="text-black block mb-1">Detail du club</label>
+                        <label htmlFor="email" className="block mb-1 text-black">Detail du club</label>
                         <input
-                            className="w-full px-4 py-2 rounded-md bg-white bg-opacity-50 focus:outline-none focus:bg-opacity-75"
+                            className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                             name="detailEntraide"
                             id="detailEntraide"
                             onChange={handleInputChange}
@@ -155,9 +155,9 @@ const Entraide = () => {
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="email" className="text-black block mb-1">Lien</label>
+                        <label htmlFor="email" className="block mb-1 text-black">Lien</label>
                         <input
-                            className="w-full px-4 py-2 rounded-md bg-white bg-opacity-50 focus:outline-none focus:bg-opacity-75"
+                            className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                             name="lienEntraide"
                             id="lienEntraide"
                             onChange={handleInputChange}
@@ -165,9 +165,9 @@ const Entraide = () => {
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="email" className="text-black block mb-1">Nom du club</label>
+                        <label htmlFor="email" className="block mb-1 text-black">Nom du club</label>
                         <input
-                            className="w-full px-4 py-2 rounded-md bg-white bg-opacity-50 focus:outline-none focus:bg-opacity-75"
+                            className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                             name="nomEntraide"
                             id="nomEntraide"
                             onChange={handleInputChange}
@@ -176,9 +176,9 @@ const Entraide = () => {
                     </div>
                 </form>
             </FormModal>
-            <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg">
+            <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md">
                 <div>
-                    <button className="bg-emerald-500 py-2 px-4 rounded" onClick={handleOpenModal}>Ajouter</button>
+                    <button className="px-4 py-2 rounded bg-emerald-500" onClick={handleOpenModal}>Ajouter</button>
                 </div>
 
                 <div className="max-w-full">
@@ -194,11 +194,11 @@ const Entraide = () => {
             </div>
             <div
                 role="list"
-                className="grid grid-cols-3 gap-3 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg p-4 m-2"
-            >
+                className="grid grid-cols-3 gap-3 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md"
+            >   
                 {entraide.map((club) => (
                     <div key={club.idEntraide}
-                         className="flex items-center gap-x-6 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg p-4 m-2">
+                         className="flex items-center p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg gap-x-6 backdrop-blur-md">
                         <img
                             className="w-16 h-16 rounded-full"
                             src={"https://hotelleriejobs.s3.amazonaws.com/news/15361/image_url/Capture_d_e_cran_2016-10-31_a__13.02.54.png"}

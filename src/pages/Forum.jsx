@@ -8,19 +8,36 @@ const Forum = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userConnected, setUserConnected] = useState("");
   const [error, setError] = useState(null);
-  const initialFormState = ({
+  const [idModifier, setIdModifier] = useState("");
+  const [dataChanged, setDataChanged] = useState(false)
+
+  const [forum, setForum] = useState([]);
+  const initialFormState = {
     titre: "",
     contenuForum: "",
     heureForum: "",
     idUtilisateur: "",
-  });
+  };
   const [imagURL, setImgURL] = useState(null);
+  const [test, setTest] = useState(null);
 
   const [formData, setFormData] = useState(initialFormState);
 
   useEffect(() => {
     const userLocaleStorage = localStorage.getItem("userSession");
     setUserConnected(JSON.parse(userLocaleStorage).idUtilisateur);
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${config.API_HOST}/api/forums`)
+      .then((response) => {
+        setForum(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   function getCurrentTime() {
@@ -76,7 +93,6 @@ const Forum = () => {
     formaData.append("heureForum", getCurrentTime());
     formaData.append("idUtilisateur", userConnected);
     formaData.append("imgForum", imagURL);
-  
 
     axios
       .post(`${config.API_HOST}/api/createForum`, formaData)
@@ -85,6 +101,60 @@ const Forum = () => {
       })
       .catch((error) => {
         setError(error);
+      });
+  };
+
+  const ouvrirModifier = async (id) => {
+    await handleOpenModal();
+    setIdModifier(id);
+    console.log(id);
+    axios
+      .get(`${config.API_HOST}/api/forum/${id}`)
+      .then((response) => {
+        setFormData({
+          titre: response.data.titre,
+          contenuForum: response.data.contenuForum,
+        });
+        
+        setImgURL(response.data.imgForum) 
+        console.log(response.data.imgForum)
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  };
+
+  const handleUpdate = () => {
+    axios
+      .patch(
+        `${config.API_HOST}/api/updateForum/${idModifier}`,
+        JSON.stringify(formData),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(async (response) => {
+        setFormData(initialFormState);
+        setDataChanged(!dataChanged);
+        await setIdModifier("");
+        handleCloseModal();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleDelete = (idForum) => {
+    console.log(userConnected);
+    axios
+      .delete(`${config.API_HOST}/api/deleteForum/${idForum}`)
+      .then((response) => {
+        setDataChanged(!dataChanged);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -101,9 +171,15 @@ const Forum = () => {
       <FormModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        onAction={handleSubmit}
-        actionLabel="Confirmer"
-        titleMessage="Titre du modal"
+        onAction={() => {
+          if (idModifier === "") {
+            handleSubmit();
+          } else {
+            handleUpdate();
+          }
+        }}
+        actionLabel={idModifier === "" ? ("Ajouter") : ("Modifier")}
+        titleMessage="Créer un forum"
       >
         <form>
           <div className="mb-4">
@@ -138,13 +214,15 @@ const Forum = () => {
               <div className="flex items-center justify-center h-[200px] border border-dashed border-[#26393D] rounded-md">
                 {imagURL ? (
                   <img
-                    src={URL.createObjectURL(imagURL)}
+                    src={ !idModifier ? URL.createObjectURL(test) : `${config.API_HOST}/uploads/${imagURL}`}
+                    // src={`${config.API_HOST}/uploads/${imagURL}`}
                     alt="Preview"
                     className="max-w-full max-h-full"
                   />
                 ) : (
                   <p className="text-[#26393D]">
-                    Cliquer ici pour ajouter une photo
+                    {/* Cliquer ici pour ajouter une photo */}
+                    {imagURL}
                   </p>
                 )}
               </div>
@@ -152,6 +230,33 @@ const Forum = () => {
           </div>
         </form>
       </FormModal>
+      <div>
+        {forum.map((item) => (
+          <ul key={item.idForum}>
+            <li>{item.titre}</li>
+            <li>{item.contenuForum}</li>
+            <li>
+              <img src={`${config.API_HOST}/uploads/${item.imgForum}`} alt="" />
+            </li>
+            <li>{item.heureForum}</li>
+            <li>
+              <button
+                onClick={() => handleDelete(item.idForum)}
+                className={"bg-red-500 px-2 rounded-lg"}
+              >
+                -
+              </button>
+              <button
+                type="button"
+                onClick={() => ouvrirModifier(item.idForum)}
+                className={"bg-green-500 px-2 rounded-lg"}
+              >
+                *
+              </button>
+            </li>
+          </ul>
+        ))}
+      </div>
       <ErrorModal
         isOpen={error !== null}
         onClose={handleCloseErrorModal}
