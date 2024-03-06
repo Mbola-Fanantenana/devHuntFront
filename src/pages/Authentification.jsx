@@ -123,9 +123,9 @@ const Authentification = () => {
                             onClick={(e) => handleSubmit(e)}
                             type="submit"
                             className="bg-white w-full bg-opacity-25 hover:bg-opacity-50 text-white py-2 px-4 rounded-md focus:outline-none text-lg font-medium"
-                            disabled={loading} // Désactiver le bouton pendant le chargement
+                            disabled={loading}
                         >
-                            {loading ? 'Chargement...' : 'Se connecter'} {/* Afficher 'Chargement...' si loading est vrai, sinon 'Se connecter' */}
+                            {loading ? 'Chargement...' : 'Se connecter'}
                         </button>
                     </form>
                     <p className="mt-4 text-white">Vous n&#39;avez pas de compte ? <Link to="/sign-up" className="text-blue-300 hover:text-blue-400">Inscrivez-vous</Link></p>
