@@ -8,8 +8,9 @@ import Inscription from './pages/Inscription.jsx';
 import Accueil from './pages/Accueil.jsx';
 import Entraide from './pages/Entraide.jsx';
 import Information from './pages/Information.jsx';
-import Test from './pages/Test.jsx';
+import Index from './pages/Index.jsx';
 import Responsable from './pages/Responsable.jsx';
+import Page_Content from './pages/Page_Content.jsx';
 
 const router = createBrowserRouter([
   {
@@ -25,25 +26,30 @@ const router = createBrowserRouter([
     element: <Inscription/>
   },
   {
-    path: '/accueil',
-    element: <Accueil/>
+    element: <Index/>,
+    children: [
+      {
+        path: '/accueil',
+        element: <Accueil/>
+      },
+      {
+        path: '/page-content',
+        element: <Page_Content/>
+      },
+      {
+        path: '/responsable',
+        element: <Responsable />
+      },
+      {
+        path: '/entraide',
+        element: <Entraide/>
+      },
+      {
+        path: '/information',
+        element: <Information/>
+      },
+    ]
   },
-  {
-    path: '/entraide',
-    element: <Entraide/>
-  },
-  {
-    path: '/information',
-    element: <Information/>
-  },
-  {
-    path: '/test',
-    element: <Test/>
-  },
-  {
-    path: '/responsable',
-    element: <Responsable />
-  }
 
 ]);
 

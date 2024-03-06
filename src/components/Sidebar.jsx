@@ -1,4 +1,5 @@
 import avatar from '../assets/Image/avatar.png';
+import { Link } from 'react-router-dom'
 
 const Sidebar = () => {
     return (
@@ -10,14 +11,13 @@ const Sidebar = () => {
                 <p className='font-medium'>RATOVONANAHARY</p>
                 <p>Andoniaina</p>
             </div>
-            <hr className="border-t border-black" />
+            <hr className="border border-white w-[150px]" />
             <h2 className="text-[#323232]">Sidebar</h2>
-            <div className='w-full'>
-                <ul className="space-y-4">
-                    <li className="text-[#323232] bg-white px-4">Option 1</li>
-                    <li className="text-[#323232] bg-white w-full">Option 2</li>
-                    <li className="text-[#323232] bg-white w-full">Option 3</li>
-                </ul>
+            <div className='space-y-2 flex flex-col'>
+                <Link to={'/page-content'} className="text-[#323232] bg-white px-4 py-2 rounded w-full text-center">Content</Link>
+                <Link to={'/responsable'} className="text-[#323232] bg-white px-4 py-2 rounded w-full text-center">Responsable</Link>
+                <Link to={'/information'} className="text-[#323232] bg-white px-4 py-2 rounded w-full text-center">Information</Link>
+                <Link to={'/entraide'} className="text-[#323232] bg-white px-4 py-2 rounded w-full text-center">Entraide</Link>
             </div>
         </div>
     );
