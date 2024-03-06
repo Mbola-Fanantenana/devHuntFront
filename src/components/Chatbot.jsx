@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import config from "../../config.json";
 
 const Chatbot = () => {
     const [prompt, setPrompt] = useState("");
@@ -9,7 +10,7 @@ const Chatbot = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:3000/api/history")
+            .get(`${config.API_HOST}/api/history`)
             .then((response) => {
                 setHistory(response.data.history);
             })
@@ -22,7 +23,7 @@ const Chatbot = () => {
             setQuestion((prevQuestion)=>
                 [...prevQuestion, prompt]);
 
-            const result = await axios.post("http://localhost:3000/api/generate", {
+            const result = await axios.post(`${config.API_HOST}/api/generate`, {
                 prompt,
             });
 
@@ -60,13 +61,11 @@ const Chatbot = () => {
                                 {
                                     !response[index] ? (
                                         <div
-                                            key={index}
                                             className={'w-full px-4 py-2 rounded-xl bg-slate-700 bg-opacity-70 focus:outline-none focus:bg-opacity-75'}>
                                             ....
                                         </div>
                                     ) : (
                                         <div
-                                            key={index}
                                             className={'w-full px-4 py-2 rounded-xl bg-slate-700 bg-opacity-70 focus:outline-none focus:bg-opacity-75'}>
                                             {response[index]}
                                         </div>
