@@ -8,6 +8,7 @@ import Inscription from './pages/Inscription.jsx';
 import Accueil from './pages/Accueil.jsx';
 import Entraide from './pages/Entraide.jsx';
 import Information from './pages/Information.jsx';
+import Test from './pages/Test.jsx';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: '/information',
     element: <Information/>
+  },
+  {
+    path: '/test',
+    element: <Test/>
   }
 ]);
 
