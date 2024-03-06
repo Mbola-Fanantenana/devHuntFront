@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Lottie from "lottie-react";
 import LoginAnimation from "../assets/Lotties/login-animation.json";
@@ -7,8 +7,10 @@ import Footer from "../components/Footer";
 import axios from "axios";
 import config from "../../config.json";
 import ErrorModal from "../components/ErrorModal";
+import SuccessModal from "../components/SuccessModal";
 
 const Inscription = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const initialFormState = {
@@ -24,6 +26,7 @@ const Inscription = () => {
     niveauUtilisateur: "",
   };
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [formData, setFormData] = useState(initialFormState);
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -84,6 +87,7 @@ const Inscription = () => {
           setFormData(initialFormState);
           setCurrentStep(4);
           console.log("création compte réussie");
+          setSuccess("Félicitation, votre compte a bien été créé !");
         })
         .catch((error) => {
           console.error("Erreur lors de la requête : ", error);
@@ -103,6 +107,11 @@ const Inscription = () => {
 
   const handleCloseErrorModal = () => {
     setError(null);
+  };
+
+  const handleCloseSuccessModal = () => {
+    setSuccess(null);
+    navigate('/photo-profil');
   };
 
   return (
@@ -346,6 +355,7 @@ const Inscription = () => {
         >
           {error}
         </ErrorModal>
+        <SuccessModal isOpen={success !== null} onClose={handleCloseSuccessModal} titleMessage="Message de suucès">{success}</SuccessModal>
       </div>
       <Footer textColor="#eee" copyright="&copy; < Minds Merge /> - 2024" />
     </div>
