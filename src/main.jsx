@@ -11,6 +11,7 @@ import Information from './pages/Information.jsx';
 import Index from './pages/Index.jsx';
 import Responsable from './pages/Responsable.jsx';
 import Page_Content from './pages/Page_Content.jsx';
+import Map from './pages/Map.jsx';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
         path: '/information',
         element: <Information/>
       },
+      {
+        path: '/map',
+        element: <Map />
+      }
     ]
   },
 
