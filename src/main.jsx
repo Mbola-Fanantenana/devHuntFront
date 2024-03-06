@@ -8,7 +8,6 @@ import Inscription from './pages/Inscription.jsx';
 import Accueil from './pages/Accueil.jsx';
 import Entraide from './pages/Entraide.jsx';
 import Information from './pages/Information.jsx';
-import Entraide from './pages/Entraide.jsx';
 import Responsable from './pages/Responsable.jsx';
 
 const router = createBrowserRouter([
@@ -35,10 +34,6 @@ const router = createBrowserRouter([
   {
     path: '/information',
     element: <Information/>
-  },
-  {
-    path: '/entraide',
-    element: <Entraide />
   },
   {
     path: '/responsable',
