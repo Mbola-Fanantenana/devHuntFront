@@ -22,11 +22,11 @@ const Responsable = () => {
   ];
 
   return (
-    <div className="bg-white">
+    <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg">
       <div className="grid items-center max-w-2xl grid-cols-1 px-4 py-24 mx-auto gap-x-8 gap-y-16 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
         <div>
           <h2 className="text-3xl font-bold tracking-tight text-[#007a55] sm:text-4xl">
-            Services existants à l'ENI
+            Services existants à l&#39;ENI
           </h2>
           <p className="mt-4 text-gray-500">
             The walnut wood card tray is precision milled to perfectly fit a
