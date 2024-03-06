@@ -7,13 +7,11 @@ import Footer from "../components/Footer";
 import axios from "axios";
 import config from '../../config.json';
 
-const Inscription = () => {
+const Information = () => {
     const [showPassword, setShowPassword] = useState(false);
     const initialFormState = ({
-        emailUtilisateur: '',
-        pseudoUtilisateur: '',
-        mdpUtilisateur: '',
-        confirmMdp : ''
+        contenueInfo: '',
+        dateInfo: '',
     })
     const [formData, setFormData] = useState(initialFormState);
 
@@ -39,8 +37,7 @@ const Inscription = () => {
                 .catch((error) => {
                     console.error('Erreur lors de la requête : ', error);
                 });
-        }
-        else {
+        } else {
             console.log("Eto ilay erreur rehefa tsy mitovy ilay mot de passe");
         }
     }
@@ -80,7 +77,7 @@ const Inscription = () => {
                             <label htmlFor="email" className="text-white block mb-1">Pseudo</label>
                             <input
                                 name="pseudoUtilisateur"
-                                value={formData.pseudoUtilisateur}
+                                value={formData.contenueInfo}
                                 onChange={handleInputChange}
                                 type="email"
                                 id="email"
@@ -91,7 +88,7 @@ const Inscription = () => {
                             <label htmlFor="email" className="text-white block mb-1">Adresse email</label>
                             <input
                                 name="emailUtilisateur"
-                                value={formData.emailUtilisateur}
+                                value={formData.dateInfo}
                                 onChange={handleInputChange}
                                 type="email"
                                 id="email"
@@ -148,4 +145,4 @@ const Inscription = () => {
     )
 }
 
-export default Inscription
+export default Information
