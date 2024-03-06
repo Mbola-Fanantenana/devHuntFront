@@ -13,6 +13,7 @@ import Responsable from './pages/Responsable.jsx';
 import Page_Content from './pages/Page_Content.jsx';
 import Map from './pages/Map.jsx';
 import Forum from './pages/Forum.jsx';
+import ProfilePic from './pages/ProfilePic.jsx';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: '/sign-up',
     element: <Inscription/>
+  },
+  {
+    path: '/photo-profil',
+    element: <ProfilePic/>
   },
   {
     element: <Index/>,
