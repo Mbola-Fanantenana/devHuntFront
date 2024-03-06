@@ -90,7 +90,7 @@ const Information = () => {
             >
                 <form>
                     <div className="mb-4">
-                        <label htmlFor="email" className="text-black block mb-1">Contenue de l'information</label>
+                        <label htmlFor="email" className="text-black block mb-1">Contenue de l&#39;information</label>
                         <textarea
                             className="w-full px-4 py-2 rounded-md bg-white bg-opacity-50 focus:outline-none focus:bg-opacity-75"
                             name="contenueInfo"
@@ -122,7 +122,7 @@ const Information = () => {
                         Photo de profile
                     </div>
                     <div className={'p-2 bg-red-500 rounded-xl'}>
-                        Nom de propriétaire de l'information
+                        Nom de propriétaire de l&#39;information
                         <span> Date et heure</span>
                     </div>
                 </div>

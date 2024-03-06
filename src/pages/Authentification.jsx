@@ -7,6 +7,7 @@ import config from '../../config.json';
 import Lottie from 'lottie-react';
 import LoginAnimation from '../assets/Lotties/login-animation.json';
 import ErrorModal from "../components/ErrorModal";
+import Toast from "../components/Toast";
 
 const Authentification = () => {
     const navigate = useNavigate();
@@ -17,6 +18,11 @@ const Authentification = () => {
     });
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [showToast, setShowToast] = useState(false);
+
+    const handleShowToast = () => {
+        setShowToast(true);
+    };
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -25,7 +31,7 @@ const Authentification = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!formData.pseudoUtilisateur || !formData.mdpUtilisateur) { 
+        if (!formData.pseudoUtilisateur || !formData.mdpUtilisateur) {
             setError("Les champs ne doivent pas être vides !");
             return;
         }
@@ -42,7 +48,10 @@ const Authentification = () => {
                 pseudoUtilisateur: '',
                 mdpUtilisateur: ''
             });
-            navigate('/accueil');
+            handleShowToast()
+            setTimeout(() => (
+                navigate('/accueil')
+            ), 5000);
 
         } catch (error) {
             setError("Le nom d'utilisateur ou le mot de passe est incorrecte !");
@@ -133,6 +142,9 @@ const Authentification = () => {
                 <ErrorModal isOpen={error !== null} onClose={handleCloseErrorModal} titleMessage="Message d'erreur">
                     {error}
                 </ErrorModal>
+                {showToast && (
+                    <Toast message="Connecter avec succès !" />
+                )}
             </div>
             <Footer textColor="#eee" copyright="&copy; < Minds Merge /> - 2024" />
         </div >
