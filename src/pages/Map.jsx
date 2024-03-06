@@ -24,7 +24,7 @@ function Map() {
         (position) => {
           const { latitude, longitude } = position.coords;
   
-          // Add a marker for the user's current location
+          // Add a marker for the user's current location 
           const userMarker = L.marker([latitude, longitude]).addTo(map.current);
           // Popup for the user's marker
           userMarker.bindPopup("Your Current Location").openPopup();
