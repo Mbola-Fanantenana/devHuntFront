@@ -7,6 +7,8 @@ import Authentification from './pages/Authentification.jsx';
 import Inscription from './pages/Inscription.jsx';
 import Accueil from './pages/Accueil.jsx';
 import Information from './pages/Information.jsx';
+import Entraide from './pages/Entraide.jsx';
+import Responsable from './pages/Responsable.jsx';
 
 const router = createBrowserRouter([
   {
@@ -28,7 +30,16 @@ const router = createBrowserRouter([
   {
     path: '/information',
     element: <Information/>
+  },
+  {
+    path: '/entraide',
+    element: <Entraide />
+  },
+  {
+    path: '/responsable',
+    element: <Responsable />
   }
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
