@@ -9,6 +9,7 @@ import Accueil from './pages/Accueil.jsx';
 import Entraide from './pages/Entraide.jsx';
 import Information from './pages/Information.jsx';
 import Test from './pages/Test.jsx';
+import Responsable from './pages/Responsable.jsx';
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,12 @@ const router = createBrowserRouter([
   {
     path: '/test',
     element: <Test/>
+  },
+  {
+    path: '/responsable',
+    element: <Responsable />
   }
+
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
