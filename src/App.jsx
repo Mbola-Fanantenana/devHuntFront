@@ -15,6 +15,11 @@ function App() {
   const handleCloseConfirmModal = () => {
     setConfirm(null);
   };
+  
+  const handleOpenConfirmModal = () => {
+    setConfirm("Voulez-vous vraiment effectuer cette action ?");
+    console.log("Action confirmée !");
+  }
 
   return (
     <>
@@ -23,6 +28,7 @@ function App() {
         <Link to={'/login'} className='px-4 py-2 text-white rounded bg-gradient-to-tl from-purple-700 to-blue-800'>Se connecter</Link>
       </div>
       <button onClick={handleShowToast}>Afficher le toast</button>
+      <button onClick={handleOpenConfirmModal}>Confirm modal</button>
       {showToast && (
         <Toast message="Ceci est un message de toast" />
       )}
