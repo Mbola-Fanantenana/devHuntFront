@@ -7,19 +7,12 @@ import config from '../../config.json';
 const Information = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [userConnected, setUserConnected] = useState("");
-    const initialFormState = ({
-        contenueInfo: '',
-        heureInfo: '',
-        idUtilisateur : '',
-        imageInfo : ''
-    })
-    const [formData, setFormData] = useState(initialFormState);
+    const [contenue, setContenue] = useState('');
     const [imgURL, setImgURL] = useState(null);
 
     useEffect(() => {
         const userLocaleStorage = localStorage.getItem('userSession');
         setUserConnected(JSON.parse(userLocaleStorage).idUtilisateur);
-
     }, []);
     function getCurrentTime() {
         const now = new Date();
@@ -47,46 +40,40 @@ const Information = () => {
         setIsModalOpen(false);
     }
 
-    const handleInputChange = (e) => {
-        const {name, value} = e.target;
-
-        setFormData({
-            ...formData,
-            [name]: value,
-            ["heureInfo"]: getCurrentTime(),
-            ["idUtilisateur"] : userConnected,
-        });
-    }
+    const contenueChangeHandler = (e) => {
+        setContenue(e.target.value);
+    };
 
     const imgURLChangeHandler = (e) => {
         const file = e.target.files[0];
-        console.log(file)
         setImgURL(file);
-
-        setFormData({
-            ...formData,
-            ["imageInfo"] : file,
-        });
     };
 
-    const handleSubmit = async (event) => {
-
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
         const formData = new FormData();
-        formData.append('contenueInfo', formData.contenueInfo);
-        formData.append('heureInfo', formData.heureInfo);
-        formData.append('imageInfo', imgURL);
+        formData.append('contenueInfo', contenue);
+        formData.append('heureInfo', getCurrentTime());
+        formData.append('imgInfo', imgURL);
         formData.append('idUtilisateur', userConnected);
 
+        console.log(contenue);
+        console.log(getCurrentTime());
+        console.log(imgURL);
+        console.log(userConnected);
+    
         console.log(formData);
-
+    
         axios.post(`${config.API_HOST}/api/createInfo`, formData)
             .then(() => {
-                setFormData(initialFormState);
+                console.log("mety");
             })
             .catch((error) => {
                 console.error('Erreur lors de la requête : ', error);
             });
     }
+    
 
     return (
         <div className=" p-2 bg-white min-h-screen flex flex-col">
@@ -108,8 +95,8 @@ const Information = () => {
                             className="w-full px-4 py-2 rounded-md bg-white bg-opacity-50 focus:outline-none focus:bg-opacity-75"
                             name="contenueInfo"
                             id="contenueInfo"
-                            onChange={handleInputChange}
-                            value={formData.contenueInfo}
+                            onChange={contenueChangeHandler}
+                            value={contenue}
                         ></textarea>
                     </div>
                     <div className="w-1/2">
