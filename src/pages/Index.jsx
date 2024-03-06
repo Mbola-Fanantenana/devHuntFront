@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 
 const Index = () => {
     return (
-        <div className="flex relative min-h-screen bg-[#ddd]">
+        <div className="flex relative min-h-screen bg-[#ccc]">
             <Sidebar />
             <div className="w-full">
                 <Navbar />

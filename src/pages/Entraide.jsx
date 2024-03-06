@@ -116,7 +116,7 @@ const Entraide = () => {
           <div key={person.name}>
             <div className="flex items-center gap-x-6 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg p-4 m-2">
               <img
-                className="w-16 h-16 rounded-fdivl"
+                className="w-16 h-16 rounded-full"
                 src={person.imageUrl}
                 alt=""
               />
