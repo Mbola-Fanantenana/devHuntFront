@@ -12,6 +12,7 @@ import Index from './pages/Index.jsx';
 import Responsable from './pages/Responsable.jsx';
 import Page_Content from './pages/Page_Content.jsx';
 import Map from './pages/Map.jsx';
+import Forum from './pages/Forum.jsx';
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: '/map',
         element: <Map />
+      },
+      {
+        path: '/forum',
+        element: <Forum />
       }
     ]
   },
