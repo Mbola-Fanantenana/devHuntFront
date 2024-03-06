@@ -1,5 +1,6 @@
 import { useState } from "react";
 import FormModal from "../components/FormModal";
+import Chatbot from "../components/Chatbot";
 
 const Accueil = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,11 +18,9 @@ const Accueil = () => {
   }
 
   return (
-    <div>
-      {/* Bouton pour ouvrir le modal */}
-      <button onClick={handleOpenModal}>Ouvrir le modal</button>
+    <div className="flex justify-center items-center h-screen">
+      <button className="bg-emerald-500 py-2 px-4 rounded" onClick={handleOpenModal}>Ouvrir le modal</button>
 
-      {/* Modal */}
       <FormModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}

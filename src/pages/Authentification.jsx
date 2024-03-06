@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import Footer from "../components/Footer";
 import axios from "axios";
@@ -9,6 +9,7 @@ import LoginAnimation from '../assets/Lotties/login-animation.json';
 import ErrorModal from "../components/ErrorModal";
 
 const Authentification = () => {
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         pseudoUtilisateur: '',
@@ -41,7 +42,7 @@ const Authentification = () => {
                 pseudoUtilisateur: '',
                 mdpUtilisateur: ''
             });
-            // window.location.href = "/redirection_vers_la_page";
+            navigate('/accueil');
 
         } catch (error) {
             setError("Le nom d'utilisateur ou le mot de passe est incorrecte !");
@@ -82,7 +83,7 @@ const Authentification = () => {
                     </div>
                     <p className="absolute flex items-center xl:text-4xl sm:block -mt-20 text-white text-opacity-50 backdrop-blur-lg">Au-delà de votre imagination.</p>
                 </div>
-                <div className="md:bg-white md:bg-opacity-20 sm:bg-transparent backdrop-blur-lg rounded-lg p-8 max-w-md relative w-full md:w-auto border border-gray-200">
+                <div className="md:bg-white md:bg-opacity-20 sm:bg-transparent backdrop-blur-lg rounded p-8 max-w-md relative w-full md:w-auto border border-gray-200">
                     <h2 className="text-3xl font-bold text-white mb-4">Connectez-vous</h2>
                     <hr className="border-t border-white border-opacity-50 mb-2" />
                     <form>
@@ -107,6 +108,7 @@ const Authentification = () => {
                                     id="password"
                                     value={formData.mdpUtilisateur}
                                     onChange={handleInputChange}
+                                    autoComplete="off"
                                 />
                                 <button
                                     type="button"
