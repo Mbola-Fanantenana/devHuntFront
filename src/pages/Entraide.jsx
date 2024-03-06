@@ -96,8 +96,8 @@ const Entraide = () => {
   ];
 
   return (
-    <div className="py-24 bg-white sm:py-32">
-      <div className="grid px-6 mx-auto max-w-7xl gap-x-8 gap-y-20 lg:px-8 xl:grid-cols-3">
+    <div>
+      <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight text-[#007a55] sm:text-4xl">
             Meet our leadership
@@ -107,30 +107,30 @@ const Entraide = () => {
             elementum enim vitae ullamcorper suspendisse.
           </p>
         </div>
-        <ul
-          role="list"
-          className="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
-        >
-          {people.map((person) => (
-            <li key={person.name}>
-              <div className="flex items-center gap-x-6">
-                <img
-                  className="w-16 h-16 rounded-full"
-                  src={person.imageUrl}
-                  alt=""
-                />
-                <div>
-                  <h3 className="text-base font-semibold leading-7 tracking-tight text-[#50C878]">
-                    {person.name}
-                  </h3>
-                  <p className="text-sm font-semibold leading-6 text-gray-500">
-                    {person.role}
-                  </p>
-                </div>
+      </div>
+      <div
+        role="list"
+        className="grid grid-cols-3 gap-3 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg p-4 m-2"
+      >
+        {people.map((person) => (
+          <div key={person.name}>
+            <div className="flex items-center gap-x-6 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg p-4 m-2">
+              <img
+                className="w-16 h-16 rounded-fdivl"
+                src={person.imageUrl}
+                alt=""
+              />
+              <div>
+                <h3 className="text-base font-semibold leading-7 tracking-tight text-[#50C878]">
+                  {person.name}
+                </h3>
+                <p className="text-sm font-semibold leading-6 text-gray-500">
+                  {person.role}
+                </p>
               </div>
-            </li>
-          ))}
-        </ul>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
