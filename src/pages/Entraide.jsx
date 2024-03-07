@@ -186,9 +186,6 @@ const Entraide = () => {
                         Clubs existants à l'ENI
                     </h2>
                     <p className="mt-6 text-lg leading-8 text-gray-600">
-                        Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae elementum enim vitae
-                        ullamcorper
-                        suspendisse.
                     </p>
                 </div>
             </div>

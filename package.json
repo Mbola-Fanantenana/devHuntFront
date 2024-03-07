@@ -11,11 +11,8 @@
   },
   "dependencies": {
     "axios": "^1.6.7",
-<<<<<<< HEAD
     "face-api.js": "^0.22.2",
-=======
     "framer-motion": "^11.0.8",
->>>>>>> 92ab86dff2cd1820449f19e83396841d8c8b34e3
     "leaflet": "^1.9.4",
     "leaflet-control-geocoder": "^2.4.0",
     "leaflet-routing-machine": "^3.2.12",

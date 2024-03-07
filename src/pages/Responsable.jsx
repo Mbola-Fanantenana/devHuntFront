@@ -2,29 +2,29 @@ import React from "react";
 
 const Responsable = () => {
   const features = [
-    { name: "Administration", description: "Designed by Good Goods, Inc." },
+    { name: "Administration", description: "Professeur MAHATODY Thomas" },
     {
       name: "Mention",
       description:
-        "Solid walnut base with rare earth magnets and powder coated steel card cover",
+        "Dr DIMBISOA William Germain - Maitre de Conférence RABETAFIKA Louis Haja",
     },
-    { name: "Scolarité", description: '6.25" x 3.55" x 1.15"' },
+    { name: "Scolarité", description: '' },
     {
       name: "Sécutité",
-      description: "Hand sanded and finished with natural oil",
+      description: "Mr Christophe",
     },
-    { name: "Bibliothèque", description: "Wood card tray and 3 refill packs" },
+    { name: "Bibliothèque", description: "Mm Olga" },
     {
-      name: "Considerations",
+      name: "Parcours",
       description:
-        "Made from natural materials. Grain and color vary with each item.",
+        "Mr Guillante Gesazafy - Mr RALAIVAO Christian - Mr Siaka",
     },
   ];
 
   return (
     <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md">
-      <div className="grid items-center max-w-2xl grid-cols-1 px-4 py-24 mx-auto gap-x-8 gap-y-16 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
-        <div>
+      <div className="grid w-full items-center max-w-2xl grid-cols-1 px-4 py-24 mx-auto gap-x-8 gap-y-16 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
+        <div className="w-full">
           <h2 className="text-3xl font-bold tracking-tight text-[#007a55] sm:text-4xl">
             Services existants à l&#39;ENI
           </h2>
@@ -63,7 +63,7 @@ const Responsable = () => {
             className="bg-gray-100 rounded-lg"
           />
           <img
-            src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-04.jpg"
+            src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-02.jpg"
             alt="Walnut card tray filled with cards and card angled in dedicated groove."
             className="bg-gray-100 rounded-lg"
           />

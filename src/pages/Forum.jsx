@@ -51,7 +51,7 @@ const Forum = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [dataChanged]);
 
   function getCurrentTime() {
     const now = new Date();
@@ -141,6 +141,7 @@ const Forum = () => {
       .then(() => {
         console.log("Forum créé !!!!!");
         handleCloseModal()
+        setDataChanged;
       })
       .catch((error) => {
         setError(error);
@@ -213,6 +214,7 @@ const Forum = () => {
       .post(`${config.API_HOST}/api/createCom`, formDataComAttend)
       .then(() => {
         console.log("mety");
+        setDataChanged;
       })
       .catch((error) => {
         console.error("Erreur lors de la requête : ", error);
@@ -343,7 +345,7 @@ const Forum = () => {
           className="flex items-center p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg gap-x-6 backdrop-blur-md">
           <img
             className="w-16 h-16 rounded-full"
-            src={"https://hotelleriejobs.s3.amazonaws.com/news/15361/image_url/Capture_d_e_cran_2016-10-31_a__13.02.54.png"}
+            src={`${config.API_HOST}/uploads/${forumById.imgForum}`}
             alt=""
           />
           <div>
