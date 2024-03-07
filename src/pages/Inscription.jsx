@@ -28,6 +28,7 @@ const Inscription = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [formData, setFormData] = useState(initialFormState);
+  const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
 
   const togglePasswordVisibility = () => {
@@ -76,23 +77,31 @@ const Inscription = () => {
         setError("Vos mots de passe ne correspondent pas !");
         return;
       }
-      console.log("tafiditra");
-      axios
-        .post(`${config.API_HOST}/api/signup`, JSON.stringify(formData), {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then(() => {
-          setFormData(initialFormState);
-          setCurrentStep(4);
-          console.log("création compte réussie");
-          setSuccess("Félicitation, votre compte a bien été créé !");
-        })
-        .catch((error) => {
-          console.error("Erreur lors de la requête : ", error);
-          setError("An error occurred. Please try again later.");
-        });
+
+      setLoading(true);
+
+      try {
+        axios
+          .post(`${config.API_HOST}/api/signup`, JSON.stringify(formData), {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+          .then(() => {
+            setFormData(initialFormState);
+            setCurrentStep(4);
+            console.log("création compte réussie");
+            setSuccess("Félicitation, votre compte a bien été créé !");
+          })
+          .catch((error) => {
+            console.error("Erreur lors de la requête : ", error);
+            setError("An error occurred. Please try again later.");
+          });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -115,10 +124,10 @@ const Inscription = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-r from-purple-700 to-blue-800">
+    <div className="flex flex-col min-h-screen bg-[#ddd]">
       <div className="flex items-center justify-center flex-grow space-x-8">
         <div className="relative md:w-[40%] sm:w-[40%]">
-          <p className="absolute flex items-center mt-10 text-white text-opacity-50 xl:text-4xl sm:block xs:block backdrop-blur-lg">
+          <p className="absolute flex items-center mt-10 text-[#323232] text-opacity-80 xl:text-4xl sm:block xs:block backdrop-blur-lg">
             Découvrez la technologie différemment.
           </p>
           <div
@@ -131,19 +140,19 @@ const Inscription = () => {
               className="w-full h-auto"
             />
           </div>
-          <p className="absolute flex items-center -mt-20 text-white text-opacity-50 xl:text-4xl sm:block backdrop-blur-lg">
+          <p className="absolute flex items-center -mt-20 text-[#323232] text-opacity-80 xl:text-4xl sm:block backdrop-blur-lg">
             Au delà de votre imagination.
           </p>
         </div>
-        <div className="relative w-full max-w-md p-8 border border-gray-200 rounded md:bg-white md:bg-opacity-20 sm:bg-transparent backdrop-blur-lg md:w-auto">
+        <div className="relative w-full max-w-md p-8 border border-gray-200 rounded md:bg-white md:bg-opacity-80 sm:bg-transparent backdrop-blur-lg md:w-auto">
           {currentStep === 1 && (
             <>
-              <h2 className="mb-4 text-3xl font-bold text-white">
+              <h2 className="mb-4 text-3xl font-bold text-[#323232]">
                 Inscrivez-vous (Étape 1)
               </h2>
-              <hr className="mb-2 border-t border-white border-opacity-50" />
+              <hr className="mb-2 border-t border-[#323232] border-opacity-50" />
               <div className="mb-4">
-                <label htmlFor="nom" className="block mb-1 text-white">
+                <label htmlFor="nom" className="block mb-1 text-[#323232]">
                   Nom de famille
                 </label>
                 <input
@@ -152,11 +161,11 @@ const Inscription = () => {
                   onChange={handleInputChange}
                   type="text"
                   id="nom"
-                  className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
+                  className="w-full px-4 py-2 bg-slate-300 bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="prenom" className="block mb-1 text-white">
+                <label htmlFor="prenom" className="block mb-1 text-[#323232]">
                   Prénom(s)
                 </label>
                 <input
@@ -165,11 +174,11 @@ const Inscription = () => {
                   onChange={handleInputChange}
                   type="text"
                   id="prenom"
-                  className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
+                  className="w-full px-4 py-2 bg-slate-300 bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="adresse" className="block mb-1 text-white">
+                <label htmlFor="adresse" className="block mb-1 text-[#323232]">
                   Adresse
                 </label>
                 <input
@@ -178,11 +187,11 @@ const Inscription = () => {
                   onChange={handleInputChange}
                   type="text"
                   id="adresse"
-                  className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
+                  className="w-full px-4 py-2 bg-slate-300 bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="tel" className="block mb-1 text-white">
+                <label htmlFor="tel" className="block mb-1 text-[#323232]">
                   Numéro téléphone
                 </label>
                 <input
@@ -191,19 +200,19 @@ const Inscription = () => {
                   onChange={handleInputChange}
                   type="text"
                   id="tel"
-                  className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
+                  className="w-full px-4 py-2 bg-slate-300 bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                 />
               </div>
             </>
           )}
           {currentStep === 2 && (
             <>
-              <h2 className="mb-4 text-3xl font-bold text-white">
+              <h2 className="mb-4 text-3xl font-bold text-[#323232]">
                 Inscrivez-vous (Étape 2)
               </h2>
-              <hr className="mb-2 border-t border-white border-opacity-50" />
+              <hr className="mb-2 border-t border-[#323232] border-opacity-50" />
               <div className="mb-4">
-                <label htmlFor="matricule" className="block mb-1 text-white">
+                <label htmlFor="matricule" className="block mb-1 text-[#323232]">
                   Matricule
                 </label>
                 <input
@@ -212,11 +221,11 @@ const Inscription = () => {
                   onChange={handleInputChange}
                   type="text"
                   id="matricule"
-                  className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
+                  className="w-full px-4 py-2 bg-slate-300 bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="niveau" className="block mb-1 text-white">
+                <label htmlFor="niveau" className="block mb-1 text-[#323232]">
                   Niveau
                 </label>
                 <select
@@ -224,7 +233,7 @@ const Inscription = () => {
                   value={formData.niveauUtilisateur}
                   onChange={handleInputChange}
                   id="niveau"
-                  className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
+                  className="w-full px-4 py-2 bg-slate-300 bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                 >
                   <option value="" disabled>
                     Sélectionnez votre niveau
@@ -237,7 +246,7 @@ const Inscription = () => {
                 </select>
               </div>
               <div className="mb-4">
-                <label htmlFor="email" className="block mb-1 text-white">
+                <label htmlFor="email" className="block mb-1 text-[#323232]">
                   Pseudo
                 </label>
                 <input
@@ -246,12 +255,12 @@ const Inscription = () => {
                   onChange={handleInputChange}
                   type="email"
                   id="email"
-                  className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
+                  className="w-full px-4 py-2 bg-slate-300 bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                 />
               </div>
               <button
                 onClick={() => setCurrentStep(currentStep - 1)}
-                className="w-full px-4 py-2 my-4 text-lg font-medium text-white bg-white bg-opacity-25 rounded-md hover:bg-opacity-50 focus:outline-none"
+                className="w-full px-4 py-2 my-4 text-lg font-medium bg-slate-400 hover:bg-slate-600 text-gray-900 hover:text-white bg-opacity-25 rounded-md hover:bg-opacity-50 focus:outline-none"
               >
                 Retour
               </button>
@@ -259,12 +268,12 @@ const Inscription = () => {
           )}
           {currentStep === 3 && (
             <>
-              <h2 className="mb-4 text-3xl font-bold text-white">
+              <h2 className="mb-4 text-3xl font-bold text-[#323232]">
                 Inscrivez-vous (Étape 3)
               </h2>
-              <hr className="mb-2 border-t border-white border-opacity-50" />
+              <hr className="mb-2 border-t border-[#323232] border-opacity-50" />
               <div className="mb-4">
-                <label htmlFor="email" className="block mb-1 text-white">
+                <label htmlFor="email" className="block mb-1 text-[#323232]">
                   Adresse email
                 </label>
                 <input
@@ -273,11 +282,11 @@ const Inscription = () => {
                   onChange={handleInputChange}
                   type="email"
                   id="email"
-                  className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
+                  className="w-full px-4 py-2 bg-slate-300 bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="password" className="block mb-1 text-white">
+                <label htmlFor="password" className="block mb-1 text-[#323232]">
                   Mot de passe
                 </label>
                 <div className="relative">
@@ -287,7 +296,7 @@ const Inscription = () => {
                     name="confirmMdp"
                     value={formData.confirmMdp}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
+                    className="w-full px-4 py-2 bg-slate-300 bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                   />
                   <button
                     type="button"
@@ -295,15 +304,15 @@ const Inscription = () => {
                     className="absolute inset-y-0 right-0 flex items-center pr-2"
                   >
                     {showPassword ? (
-                      <FiEye className="text-white" />
+                      <FiEye className="text-[#323232]" />
                     ) : (
-                      <FiEyeOff className="text-white" />
+                      <FiEyeOff className="text-[#323232]" />
                     )}
                   </button>
                 </div>
               </div>
               <div className="mb-4">
-                <label htmlFor="password" className="block mb-1 text-white">
+                <label htmlFor="password" className="block mb-1 text-[#323232]">
                   Confirmez le mot de passe
                 </label>
                 <div className="relative">
@@ -313,7 +322,7 @@ const Inscription = () => {
                     name="mdpUtilisateur"
                     value={formData.mdpUtilisateur}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
+                    className="w-full px-4 py-2 bg-slate-300 bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                   />
                   <button
                     type="button"
@@ -321,13 +330,19 @@ const Inscription = () => {
                     className="absolute inset-y-0 right-0 flex items-center pr-2"
                   >
                     {showConfirmPassword ? (
-                      <FiEye className="text-white" />
+                      <FiEye className="text-[#323232]" />
                     ) : (
-                      <FiEyeOff className="text-white" />
+                      <FiEyeOff className="text-[#323232]" />
                     )}
                   </button>
                 </div>
               </div>
+              <button
+                onClick={() => setCurrentStep(currentStep - 1)}
+                className="w-full px-4 py-2 my-4 text-lg font-medium bg-slate-400 hover:bg-slate-600 text-gray-900 hover:text-white bg-opacity-25 rounded-md hover:bg-opacity-50 focus:outline-none"
+              >
+                Retour
+              </button>
             </>
           )}
           {currentStep !== 4 && (
@@ -335,15 +350,16 @@ const Inscription = () => {
               <button
                 type="submit"
                 onClick={(e) => handleSubmit(e)}
-                className="w-full px-4 py-2 text-lg font-medium text-white bg-white bg-opacity-25 rounded-md hover:bg-opacity-50 focus:outline-none"
+                className="w-full px-4 py-2 text-lg font-medium text-white bg-[#007a55] bg-opacity-60 rounded-md hover:bg-opacity-80 focus:outline-none"
+                disabled={loading}
               >
-                {currentStep === 3 ? "Finaliser l'inscription" : "Suivant"}
+                {currentStep === 3 && loading ? 'Chargement...' : currentStep === 3 ? "Finaliser l'inscription" : "Suivant"}
               </button>
             </form>
           )}
-          <p className="mt-4 text-center text-white">
+          <p className="mt-4 text-center text-[#323232]">
             Vous avez un compte ?{" "}
-            <Link to="/login" className="text-blue-300 hover:text-blue-400">
+            <Link to="/login" className="text-[#007a55] hover:text-emerald-700">
               Connectez-vous
             </Link>
           </p>
@@ -357,7 +373,7 @@ const Inscription = () => {
         </ErrorModal>
         <SuccessModal isOpen={success !== null} onClose={handleCloseSuccessModal} titleMessage="Message de suucès">{success}</SuccessModal>
       </div>
-      <Footer textColor="#eee" copyright="&copy; < Minds Merge /> - 2024" />
+      <Footer textColor="#323232" copyright="&copy; < Minds Merge /> - 2024" />
     </div>
   );
 };
