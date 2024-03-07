@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 // Import des bibliothèques nécessaires
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -177,52 +178,50 @@ function Message() {
 
     return (
         <div className={` w-full min-h-[80vh] max-h-[80vh] `}>
-            <div className={`bg-gray-300 rounded-xl text-center`}>
+            {/* <div className="flex-1 p-4 m-2 flex justify-center font-medium bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg">
                 {storedData.nomUtilisateur} {storedData.prenomUtilisateur}
-            </div>
-            <div className={`w-full flex h-full m-8 flex-row bg-green-200`}>
-                <div className={`w-1/4 `}>
-                    <div className='m-5 space-x-5'>
-                        <div class="relative inline-flex">
+            </div> */}
+            <div className="relative flex-1 m-2 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg flex flex-row">
+                <div className={`w-1/4 rounded-tl-lg rounded-bl-lg flex-1 bg-white bg-opacity-25 px-2`}>
+                    <div className='flex justify-center my-4 space-x-3'>
+                        <div className="relative inline-flex ">
                             <button onClick={setLoadingTrue}
-                                    class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-                                    type="button">
+                                className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-[#007a55] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+                                type="button">
                                 En ligne
                             </button>
                             <span
-                                class="absolute rounded-full py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white min-w-[24px] min-h-[24px]">
-                            {notif_Total && (
-                                <span className=''>
-                                    {notif_Total}
-                                </span>
-                            )}
-                        </span>
+                                className="absolute rounded-full py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-[#ea4444] text-white min-w-[24px] min-h-[24px]">
+                                {notif_Total && (
+                                    <span className=''>
+                                        {notif_Total}
+                                    </span>
+                                )}
+                            </span>
                         </div>
-                        <div class="relative inline-flex">
+                        <div className="relative inline-flex">
                             <button onClick={setLoadingFalse}
-                                    class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-                                    type="button">
-                                En ligne
+                                className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-[#007a55] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+                                type="button">
+                                Discussion
                             </button>
                             <span
-                                class="absolute rounded-full py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white min-w-[24px] min-h-[24px]">
-                            {notif_Total && (
-                                <span className=''>
-                                    {notif_Total}
-                                </span>
-                            )}
-                        </span>
+                                className="absolute rounded-full py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-[#ea4444] text-white min-w-[24px] min-h-[24px]">
+                                {notif_Total && (
+                                    <span className=''>
+                                        {notif_Total}
+                                    </span>
+                                )}
+                            </span>
                         </div>
                     </div>
-
-
                     <hr className={`my-1 border-0.3 border-black`} />
                     <input
                         type="text"
                         placeholder="Rechercher un utilisateur..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="px-3 w-full py-2 rounded-xl"
+                        className="px-2 border-gray-500 w-full py-2 rounded"
                     />
                     <hr className={`my-1 border-0.3 border-black`} />
                     {loading ? (
@@ -239,20 +238,18 @@ function Message() {
                                     <div
                                         key={index}
                                         onClick={() => setMessageWith(user.idUtilisateur)}
-                                        className={`flex hover:bg-gray-600 px-3 py-1 my-0.5 bg-white rounded-lg items-center cursor-pointer user-item`}
+                                        className={`flex hover:bg-green-600 px-1 py-1 bg-white rounded-lg items-center cursor-pointer user-item m-2 space-y-1`}
                                     >
-                                        <div
-                                            className={`badge ${unreadCountData ? 'badge-unread' : 'badge-read'}`}
-                                        ></div>
+                                        <div className={`badge ${unreadCountData ? 'badge-unread' : 'badge-read'}`}></div>
                                         <div className={`ml-4`}>
                                             <span className="font-bold">{user.nomUtilisateur}</span>
                                             <span className="ml-2">{user.prenomUtilisateur}</span>
-                                            <span
-                                                class="absolute rounded-full py-1 px-1 text-xs font-medium content-[''] top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white min-w-[30px] min-h-[30px]">
-                            {unreadCountData && (
-                                <span className="text-red-500">{unreadCountData.unreadCount || ''}</span>
-                            )}
-                        </span>
+                                            {/*<span*/}
+                                            {/*    className="rounded-full py-1 px-1 text-xs font-medium content-[''] top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-[#ea4444] text-white min-w-[30px] min-h-[30px]">*/}
+                                            {/*    {unreadCountData && (*/}
+                                            {/*        <span className="text-[#ea4444]">{unreadCountData.unreadCount || ''}</span>*/}
+                                            {/*    )}*/}
+                                            {/*</span>*/}
 
                                         </div>
                                     </div>
@@ -276,81 +273,94 @@ function Message() {
                                     >
                                         {user.nomUtilisateur} {user.prenomUtilisateur}
                                         <span
-                                            class="absolute rounded-full py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white min-w-[30px] min-h-[30px]">
-                            {unreadCountData && (
-                                <span className="text-red-500">{unreadCountData.unreadCount || ''}</span>
-                            )}
-                        </span>
+                                            className="absolute rounded-full py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white min-w-[30px] min-h-[30px]">
+                                            {unreadCountData && (
+                                                <span className="text-red-500">{unreadCountData.unreadCount || ''}</span>
+                                            )}
+                                        </span>
                                     </div>
                                 );
                             })
                     )}
                 </div>
-                <div className="relative w-full min-h-[85vh] max-h-[85vh] p-6 overflow-y-auto  bg-white border-b border-gray-200">
+                <div className='flex flex-col w-3/4'>
+                    <div className="p-6 overflow-y-auto h-[465px] bg-white rounded-tr-lg border-b border-gray-200">
 
-                    {titreMessage && titreMessage.length === 0 ? (
-                        ''
-                    ) : (
-                        <>
-                            <div className={`flex space-x-3`}>
-                                <div
-                                    className={`py-2 px-3 bg-slate-800 text-white rounded-full text-center my-3`}
-                                >
-                                    Messages
-                                </div>
-                                <div
-                                    className={`py-2 px-3 bg-slate-500 rounded-full text-center my-3`}
-                                >
-                                    {titreMessage.nomUtilisateur} {titreMessage.prenomUtilisateur}
-                                </div>
-                            </div>
-                            <hr className={`my-1 border-0.3 border-black`} />
-                        </>
-                    )}
-                    {message && message.length !== 0 ? (
-                        <div className={`flex flex-col items-center   justify-center`}>
-                            {message.map((msg, index) => (
-                                <div key={index} className='w-[100%]  m-3 space-y-3'>
-                                    <div className={`flex flex-row justify-center text-xs space-x-2`}><span>{msg.dateEnvoi.split('T')[0]} </span><span>{msg.heureMessage} </span> </div>
+                        {titreMessage && titreMessage.length === 0 ? (
+                            ''
+                        ) : (
+                            <>
+                                <div className={`flex space-x-3`}>
                                     <div
-                                        className={`px-3 w-[100%] py-2 my-1 rounded-xl ${msg.emetteurMessageId === storedData.idUtilisateur
-                                            ? 'bg-blue-500 text-white self-end'
-                                            : 'bg-white text-black'
-                                        }`}
+                                        className={`py-2 px-3 bg-gray-500 text-white rounded-lg text-center my-3`}
                                     >
-
-                                        {msg.contenuMessage}
+                                        Messages
+                                    </div>
+                                    <div
+                                        className={`py-2 px-3 bg-[#007a55] bg-opacity-50 rounded-lg text-center my-3`}
+                                    >
+                                        {titreMessage.nomUtilisateur} {titreMessage.prenomUtilisateur}
                                     </div>
                                 </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <>
-                            <div className={`px-3 py-5 text-gray-600 bg-gray-200 rounded-xl`}>
-                                Aucun message pour le moment ...
+                                <hr className={`my-1 border-0.3 border-black`} />
+                            </>
+                        )}
+                        {message && message.length !== 0 ? (
+                            <div className={`flex flex-col items-center justify-center`}>
+                                {message.map((msg, index) => (
+                                    <div key={index} className='w-[100%]  m-3 space-y-3'>
+                                        <div className={`flex flex-row justify-center text-xs space-x-2`}><span>{msg.dateEnvoi.split('T')[0]} </span><span>{msg.heureMessage} </span> </div>
+                                        <div
+                                            className={`px-3 w-[100%] py-2 my-1 rounded-xl ${msg.emetteurMessageId === storedData.idUtilisateur
+                                                ? "w-[80%] px-4 py-2 rounded-xl flex place-content-end bg-[#007a55] bg-opacity-80 text-white focus:outline-none focus:bg-opacity-75 ml-auto"
+                                                : "w-[80%] px-4 py-2 rounded-xl bg-slate-500 bg-opacity-70 focus:outline-none focus:bg-opacity-75"
+                                                }`}
+                                        >
+
+                                            {msg.contenuMessage}
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                        </>
-                    )}
+                        ) : (
+                            <>
+                                <div className={`px-3 py-5 text-gray-600 bg-gray-200 rounded-xl`}>
+                                    Aucun message pour le moment ...
+                                </div>
+                            </>
+                        )}
 
+                    </div>
+
+                    <div className="flex justify-start sticky space-x-2 bottom-0 p-2 rounded-br-lg">
+                        <input
+                            type="text"
+                            name={'contenuMessage'}
+                            className="w-[100%] py-2 outline-none bg-gray-50 border pl-4 border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Écrire un nouveau message..."
+                            value={formData.contenuMessage}
+                            onChange={handleInputChange}
+                        />
+                        <button
+                            type="submit"
+                            onClick={sendMessage}
+                            className="px-5 text-sm bg-[#007a55] font-medium pr-4 rounded text-slate focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+                        >
+                            <svg
+                                width="20px"
+                                height="20px"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M18.0693 8.50867L9.50929 4.22867C3.75929 1.34867 1.39929 3.70867 4.27929 9.45867L5.14929 11.1987C5.39929 11.7087 5.39929 12.2987 5.14929 12.8087L4.27929 14.5387C1.39929 20.2887 3.74929 22.6487 9.50929 19.7687L18.0693 15.4887C21.9093 13.5687 21.9093 10.4287 18.0693 8.50867ZM14.8393 12.7487H9.43929C9.02929 12.7487 8.68929 12.4087 8.68929 11.9987C8.68929 11.5887 9.02929 11.2487 9.43929 11.2487H14.8393C15.2493 11.2487 15.5893 11.5887 15.5893 11.9987C15.5893 12.4087 15.2493 12.7487 14.8393 12.7487Z"
+                                    fill="#ddd"
+                                ></path>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-
-            </div>
-            <div className="flex justify-end  space-x-2 mt-4">
-                <input
-                    type="text"
-                    name={'contenuMessage'}
-                    className="w-[75%] py-2 pl-4 mx-3 outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Écrire un nouveau message..."
-                    value={formData.contenuMessage}
-                    onChange={handleInputChange}
-                />
-                <button
-                    type="submit"
-                    onClick={sendMessage}
-                    className="px-5 text-sm bg-red-500 font-medium rounded-full text-slate hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
-                >
-                    +
-                </button>
             </div>
         </div>
     );

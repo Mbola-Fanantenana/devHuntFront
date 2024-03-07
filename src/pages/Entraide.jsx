@@ -177,13 +177,13 @@ const Entraide = () => {
                 </form>
             </FormModal>
             <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md">
-                <div>
+                {/* <div>
                     <button className="px-4 py-2 rounded bg-emerald-500" onClick={handleOpenModal}>Ajouter</button>
-                </div>
+                </div> */}
 
                 <div className="max-w-full">
                     <h2 className="text-3xl font-bold tracking-tight text-[#007a55] sm:text-4xl">
-                        Meet our leadership
+                        Clubs existants à l'ENI
                     </h2>
                     <p className="mt-6 text-lg leading-8 text-gray-600">
                         Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae elementum enim vitae
@@ -217,14 +217,14 @@ const Entraide = () => {
                             {/*<p className="text-sm font-semibold leading-6 text-gray-500">*/}
                             {/*    {club.detailEntraide}*/}
                             {/*</p>*/}
-                            <button onClick={() => handleDelete(club.idEntraide)}
+                            {/* <button onClick={() => handleDelete(club.idEntraide)}
                                     className={'bg-red-500 px-2 rounded-lg'}>
                                 -
                             </button>
                             <button type='button' onClick={() => ouvrirModifier(club.idEntraide)}
                                     className={'bg-green-500 px-2 rounded-lg'}>
                                 *
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 ))}

@@ -206,37 +206,27 @@ const Information = () => {
           </div>
         </form>
       </FormModal>
-      <div className={"py-2 grid grid-cols-2 gap-2"}>
-        {infos.map((item) => (
-          <div
-            className={
-              "w-full flex px-4 py-2 rounded-md bg-gray-600 bg-opacity-50 focus:outline-none focus:bg-opacity-75"
-            }
-          >
-            <div className={"p-2 bg-gray-500 rounded-xl"}>
-                <img src={`${config.API_HOST}/uploads/${item.imgInfo}`} alt="" />
-            </div>
-            <div className={"p-2 bg-gray-500 rounded-xl"}>
-              {item.contenueInfo}
-              <span>{item.heureInfo}</span>
-            </div>
-            <div>
-            <button
-                onClick={() => handleDelete(item.idInfo)}
-                className={"bg-red-500 px-2 rounded-lg"}
+      <div>
+        <div>
+          {infos.map((item) => (
+              <ul
+                  onClick={() => setForumComment(item.idForum)}
+                  key={item.idInfo}
+                  className="p-4 my-4 border rounded-md shadow-md"
               >
-                -
-              </button>
-              <button
-                type="button"
-                onClick={() => ouvrirModifier(item.idInfo)}
-                className={"bg-green-500 px-2 rounded-lg"}
-              >
-                *
-              </button>
-            </div>
-          </div>
-        ))}
+                
+                <li className="mt-2">{item.contenueInfo}</li>
+                <li className="mt-2">
+                <img
+                  src={`${config.API_HOST}/uploads/${item.imgInfo}`}
+                  alt=""
+                  className="w-40 h-40 rounded-md"
+                />
+              </li>
+              <li className="mt-2">{item.heureInfo}</li>
+            </ul>
+          ))}
+        </div>
       </div>
     </div>
   );
