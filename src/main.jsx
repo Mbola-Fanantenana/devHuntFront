@@ -17,6 +17,7 @@ import Forum from './pages/Forum.jsx';
 import ProfilePic from './pages/ProfilePic.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import Profil from './pages/Profil.jsx'
+import Message from './pages/Message.jsx'
 
 const ProtectedRoute = ({ element }) => {
   const navigate = useNavigate();
@@ -85,6 +86,11 @@ const router = createBrowserRouter([
       {
         path: '/profil',
         element: <Profil />
+      },
+
+      {
+        path: '/message',
+        element: <Message />
       }
     ]
   },
