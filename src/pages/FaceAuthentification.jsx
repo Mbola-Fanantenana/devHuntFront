@@ -231,10 +231,10 @@ const FaceAuthentification = () => {
 
 
     return (
-        <div className="bg-gradient-to-r from-purple-700 to-blue-800 min-h-screen flex flex-col">
-            <div className="flex-grow flex justify-center items-center">
+        <div className="flex flex-col min-h-screen bg-[#ddd]">
+            <div className="flex items-center justify-center flex-grow">
                 <div className='relative md:w-[40%] sm:w-[40%]'>
-                    <p className="absolute flex items-center xl:text-4xl sm:block xs:block mt-10 text-white text-opacity-50 backdrop-blur-lg">Découvrez la technologie differemment.</p>
+                    <p className="absolute flex items-center mt-10 text-gray-600 opacity-50 text- xl:text-4xl sm:block xs:block backdrop-blur-lg">Découvrez la technologie differemment.</p>
                     <div className={`relative xl:w-[100%] lg:w-[100%] md:w-[100%] sm:block xs:block`}>
                         <Lottie
                             animationData={LoginAnimation}
@@ -243,16 +243,16 @@ const FaceAuthentification = () => {
                             className="w-full h-auto"
                         />
                     </div>
-                    <p className="absolute flex items-center xl:text-4xl sm:block -mt-20 text-white text-opacity-50 backdrop-blur-lg">Au delà de votre imagination.</p>
+                    <p className="absolute flex items-center -mt-20 text-gray-600 text-opacity-50 xl:text-4xl sm:block backdrop-blur-lg">Au delà de votre imagination.</p>
                 </div>
-                <div className="md:bg-white md:bg-opacity-20 sm:bg-transparent backdrop-blur-lg rounded-lg p-8 max-w-md relative w-full md:w-auto">
-                    <h2 className="text-3xl font-bold text-white mb-4">Connectez-vous</h2>
-                    <hr className="border-t border-white border-opacity-50 mb-2" />
+                <div className="relative w-full max-w-md p-8 rounded-lg md:bg-white md:bg-opacity-20 sm:bg-transparent backdrop-blur-lg md:w-auto">
+                    <h2 className="mb-4 text-3xl font-bold text-white">Connectez-vous</h2>
+                    <hr className="mb-2 border-t border-white border-opacity-50" />
                     <form>
                         <div className="mb-4">
-                            <label htmlFor="email" className="text-white block mb-1">Nom d&#39;utilisateur</label>
+                            <label htmlFor="email" className="block mb-1 text-white">Nom d&#39;utilisateur</label>
                             <input
-                                className="w-full px-4 py-2 rounded-md bg-white bg-opacity-50 focus:outline-none focus:bg-opacity-75"
+                                className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
                                 name="pseudoUtilisateur"
                                 id="email"
                                 type="text"
@@ -263,7 +263,7 @@ const FaceAuthentification = () => {
                         <button
                             onClick={valid}
                             type="button"
-                            className="bg-white w-full bg-opacity-25 hover:bg-opacity-50 text-white py-2 px-4 rounded-md focus:outline-none text-lg font-medium"
+                            className="w-full px-4 py-2 text-lg font-medium text-white bg-white bg-opacity-25 rounded-md hover:bg-opacity-50 focus:outline-none"
                         >Suivant</button>
                         <div className="w-full mb-4">
                             <div className="relative flex flex-col items-center">
@@ -293,11 +293,11 @@ const FaceAuthentification = () => {
                             </div>
                         </div>
                         {localUserStream && loginResult === "SUCCESS" && (
-                            <h2 className="text-center text-sm font-extrabold tracking-tight text-gray-900">
-                                <span className="block text-indigo-600 mt-2">
+                            <h2 className="text-sm font-extrabold tracking-tight text-center text-gray-900">
+                                <span className="block mt-2 text-indigo-600">
                                     We've successfully recognize your face!
                                 </span>
-                                <span className="block text-indigo-600 mt-2">
+                                <span className="block mt-2 text-indigo-600">
                                     Rester pendant {counter} quelques secondes
                                 </span>
                             </h2>
@@ -324,7 +324,7 @@ const FaceAuthentification = () => {
                                             <svg
                                                 aria-hidden="true"
                                                 role="status"
-                                                className="inline mr-2 w-4 h-4 text-gray-200 animate-spin"
+                                                className="inline w-4 h-4 mr-2 text-gray-200 animate-spin"
                                                 viewBox="0 0 100 101"
                                                 fill="none"
                                                 xmlns="http://www.w3.org/2000/svg"

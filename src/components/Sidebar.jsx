@@ -9,7 +9,7 @@ const Sidebar = () => {
         <div className="bg-[#119877] bg-opacity-60 backdrop-blur-md rounded p-2 m-2 shadow-lg px-12 max-h-screen w-[15%] flex flex-col justify-center items-center">
             <div className='flex flex-col items-center justify-center space-y-2 h-1/3'>
                 {/* <div className="w-32 h-32 overflow-hidden border-2 rounded-full"> */}
-                    <img className="object-cover w-20 h-20" src={logo} alt="Photo de profil" />
+                    <img className="w-32 h-32" src={logo} alt="Photo de profil" />
                 {/* </div> */}
             </div>
             <hr className="border border-white w-[150px]" />

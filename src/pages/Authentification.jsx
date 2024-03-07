@@ -85,7 +85,7 @@ const Authentification = () => {
 
     return (
         <div className="bg-[#ddd] min-h-screen flex flex-col">
-            <div className="flex-grow flex justify-center items-center">
+            <div className="flex items-center justify-center flex-grow">
                 <div className='relative md:w-[40%] sm:w-[40%]'>
                     <p className="absolute flex items-center xl:text-4xl sm:block xs:block mt-10 text-[#323232] text-opacity-80 backdrop-blur-lg">Découvrez la technologie différemment.</p>
                     <div className={`relative xl:w-[100%] lg:w-[100%] md:w-[100%] sm:block xs:block`}>
@@ -98,14 +98,14 @@ const Authentification = () => {
                     </div>
                     <p className="absolute flex items-center xl:text-4xl sm:block -mt-20 text-[#323232] text-opacity-80 backdrop-blur-lg">Au-delà de votre imagination.</p>
                 </div>
-                <div className="md:bg-white md:bg-opacity-80 sm:bg-transparent backdrop-blur-lg rounded p-8 max-w-md relative w-full md:w-auto border border-gray-200">
+                <div className="relative w-full max-w-md p-8 border border-gray-200 rounded md:bg-white md:bg-opacity-80 sm:bg-transparent backdrop-blur-lg md:w-auto">
                     <h2 className="text-3xl font-bold text-[#323232] mb-4">Connectez-vous</h2>
                     <hr className="border-t border-[#323232] border-opacity-50 mb-2" />
                     <form>
                         <div className="mb-4">
                             <label htmlFor="email" className="text-[#323232] block mb-1">Nom d&#39;utilisateur</label>
                             <input
-                                className="w-full px-4 py-2 rounded bg-slate-300 bg-opacity-50 focus:outline-none focus:bg-opacity-80"
+                                className="w-full px-4 py-2 bg-opacity-50 rounded bg-slate-300 focus:outline-none focus:bg-opacity-80"
                                 name="pseudoUtilisateur"
                                 id="email"
                                 type="text"
@@ -118,7 +118,7 @@ const Authentification = () => {
                             <div className="relative">
                                 <input
                                     type={showPassword ? "text" : "password"}
-                                    className="w-full px-4 py-2 rounded bg-slate-300 bg-opacity-50 focus:outline-none focus:bg-opacity-80"
+                                    className="w-full px-4 py-2 bg-opacity-50 rounded bg-slate-300 focus:outline-none focus:bg-opacity-80"
                                     name="mdpUtilisateur"
                                     id="password"
                                     value={formData.mdpUtilisateur}
