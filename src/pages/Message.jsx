@@ -24,7 +24,6 @@ function Message() {
     });
     const [searchTerm, setSearchTerm] = useState('');
 
-    // Écoute de l'événement 'update' du socket
     socket.on('update', () => {
         setDataChanged(!dataChanged);
     });
