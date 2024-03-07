@@ -19,6 +19,7 @@ const Sidebar = () => {
                 <Link to={'/responsable'} className={`text-[#323232] px-4 py-2 rounded w-full text-center ${location.pathname === '/responsable' ? 'bg-green-500' : 'bg-white'}`}>Responsable</Link>
                 <Link to={'/information'} className={`text-[#323232] px-4 py-2 rounded w-full text-center ${location.pathname === '/information' ? 'bg-green-500' : 'bg-white'}`}>Information</Link>
                 <Link to={'/entraide'} className={`text-[#323232] px-4 py-2 rounded w-full text-center ${location.pathname === '/entraide' ? 'bg-green-500 pr-4' : 'bg-white'}`}>Entraide</Link>
+                <Link to={'/forum'} className={`text-[#323232] px-4 py-2 rounded w-full text-center ${location.pathname === '/forum' ? 'bg-green-500 pr-4' : 'bg-white'}`}>Forum</Link>
             </div>
         </div>
     );
