@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import Footer from "../components/Footer";
@@ -76,6 +76,12 @@ const Authentification = () => {
     const handleCloseErrorModal = () => {
         setError(null);
     }
+
+    useEffect(() => {
+        if(localStorage.getItem('token') !== null && localStorage.getItem('userSession') !== null) {
+            navigate('/accueil');
+        }
+    }, [])
 
     return (
         <div className="bg-[#ddd] min-h-screen flex flex-col">
