@@ -9,7 +9,7 @@ const Forum = () => {
   const [userConnected, setUserConnected] = useState("");
   const [error, setError] = useState(null);
   const [idModifier, setIdModifier] = useState("");
-  const [dataChanged, setDataChanged] = useState(false)
+  const [dataChanged, setDataChanged] = useState(false);
 
   const [forum, setForum] = useState([]);
   const initialFormState = {
@@ -115,9 +115,9 @@ const Forum = () => {
           titre: response.data.titre,
           contenuForum: response.data.contenuForum,
         });
-        
-        setImgURL(response.data.imgForum) 
-        console.log(response.data.imgForum)
+
+        setImgURL(response.data.imgForum);
+        console.log(response.data.imgForum);
       })
       .catch((error) => {
         setError(error);
@@ -178,7 +178,7 @@ const Forum = () => {
             handleUpdate();
           }
         }}
-        actionLabel={idModifier === "" ? ("Ajouter") : ("Modifier")}
+        actionLabel={idModifier === "" ? "Ajouter" : "Modifier"}
         titleMessage="Créer un forum"
       >
         <form>
@@ -214,7 +214,11 @@ const Forum = () => {
               <div className="flex items-center justify-center h-[200px] border border-dashed border-[#26393D] rounded-md">
                 {imagURL ? (
                   <img
-                    src={ !idModifier ? URL.createObjectURL(test) : `${config.API_HOST}/uploads/${imagURL}`}
+                    src={
+                      !idModifier
+                        ? URL.createObjectURL(test)
+                        : `${config.API_HOST}/uploads/${imagURL}`
+                    }
                     // src={`${config.API_HOST}/uploads/${imagURL}`}
                     alt="Preview"
                     className="max-w-full max-h-full"
@@ -231,31 +235,49 @@ const Forum = () => {
         </form>
       </FormModal>
       <div>
-        {forum.map((item) => (
-          <ul key={item.idForum}>
-            <li>{item.titre}</li>
-            <li>{item.contenuForum}</li>
-            <li>
-              <img src={`${config.API_HOST}/uploads/${item.imgForum}`} alt="" />
-            </li>
-            <li>{item.heureForum}</li>
-            <li>
-              <button
-                onClick={() => handleDelete(item.idForum)}
-                className={"bg-red-500 px-2 rounded-lg"}
-              >
-                -
-              </button>
-              <button
-                type="button"
-                onClick={() => ouvrirModifier(item.idForum)}
-                className={"bg-green-500 px-2 rounded-lg"}
-              >
-                *
-              </button>
-            </li>
-          </ul>
-        ))}
+        <div>
+          {forum.map((item) => (
+            <ul
+              key={item.idForum}
+              className="p-4 my-4 border rounded-md shadow-md"
+            >
+              <li className="text-lg font-bold">{item.titre}</li>
+              <li className="mt-2">{item.contenuForum}</li>
+              <li className="mt-2">
+                <img
+                  src={`${config.API_HOST}/uploads/${item.imgForum}`}
+                  alt=""
+                  className="w-40 h-40 rounded-md"
+                />
+              </li>
+              <li className="mt-2">{item.heureForum}</li>
+              <li className="flex items-center mt-2">
+                <button
+                  onClick={() => handleDelete(item.idForum)}
+                  className="px-2 mr-2 bg-red-500 rounded-lg"
+                >
+                  Supprimer
+                </button>
+                <button
+                  type="button"
+                  onClick={() => ouvrirModifier(item.idForum)}
+                  className="px-2 bg-green-500 rounded-lg"
+                >
+                  Modifier
+                </button>
+              </li>
+            </ul>
+          ))}
+
+          {/* Affichage du modal d'erreur */}
+          <ErrorModal
+            isOpen={error !== null}
+            onClose={handleCloseErrorModal}
+            titleMessage="Message d'erreur"
+          >
+            {error}
+          </ErrorModal>
+        </div>
       </div>
       <ErrorModal
         isOpen={error !== null}
