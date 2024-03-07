@@ -59,7 +59,7 @@ const Profil = () => {
   };
 
   return (
-    <div className="px-6 py-24 bg-white isolate sm:py-14 lg:px-8">
+    <div className="h-screen px-6 py-24 overflow-y-auto bg-white isolate sm:py-14 lg:px-8">
       <div
         className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
         aria-hidden="true"
