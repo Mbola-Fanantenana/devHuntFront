@@ -181,7 +181,7 @@ function Message() {
             {/* <div className="flex-1 p-4 m-2 flex justify-center font-medium bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg">
                 {storedData.nomUtilisateur} {storedData.prenomUtilisateur}
             </div> */}
-            <div className="flex-1 m-2 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg flex flex-row">
+            <div className="relative flex-1 m-2 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg flex flex-row">
                 <div className={`w-1/4 rounded-tl-lg rounded-bl-lg flex-1 bg-white bg-opacity-25 px-2`}>
                     <div className='flex justify-center my-4 space-x-3'>
                         <div className="relative inline-flex ">
@@ -238,18 +238,18 @@ function Message() {
                                     <div
                                         key={index}
                                         onClick={() => setMessageWith(user.idUtilisateur)}
-                                        className={`flex hover:bg-gray-600 px-3 py-1 my-0.5 bg-white rounded-lg items-center cursor-pointer user-item m-2 space-y-1`}
+                                        className={`flex hover:bg-green-600 px-1 py-1 bg-white rounded-lg items-center cursor-pointer user-item m-2 space-y-1`}
                                     >
                                         <div className={`badge ${unreadCountData ? 'badge-unread' : 'badge-read'}`}></div>
                                         <div className={`ml-4`}>
                                             <span className="font-bold">{user.nomUtilisateur}</span>
                                             <span className="ml-2">{user.prenomUtilisateur}</span>
-                                            <span
-                                                className="rounded-full py-1 px-1 text-xs font-medium content-[''] top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-[#ea4444] text-white min-w-[30px] min-h-[30px]">
-                                                {unreadCountData && (
-                                                    <span className="text-[#ea4444]">{unreadCountData.unreadCount || ''}</span>
-                                                )}
-                                            </span>
+                                            {/*<span*/}
+                                            {/*    className="rounded-full py-1 px-1 text-xs font-medium content-[''] top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-[#ea4444] text-white min-w-[30px] min-h-[30px]">*/}
+                                            {/*    {unreadCountData && (*/}
+                                            {/*        <span className="text-[#ea4444]">{unreadCountData.unreadCount || ''}</span>*/}
+                                            {/*    )}*/}
+                                            {/*</span>*/}
 
                                         </div>
                                     </div>
@@ -292,12 +292,12 @@ function Message() {
                             <>
                                 <div className={`flex space-x-3`}>
                                     <div
-                                        className={`py-2 px-3 bg-slate-800 text-white rounded-full text-center my-3`}
+                                        className={`py-2 px-3 bg-gray-500 text-white rounded-lg text-center my-3`}
                                     >
                                         Messages
                                     </div>
                                     <div
-                                        className={`py-2 px-3 bg-slate-500 rounded-full text-center my-3`}
+                                        className={`py-2 px-3 bg-[#007a55] bg-opacity-50 rounded-lg text-center my-3`}
                                     >
                                         {titreMessage.nomUtilisateur} {titreMessage.prenomUtilisateur}
                                     </div>
@@ -312,8 +312,8 @@ function Message() {
                                         <div className={`flex flex-row justify-center text-xs space-x-2`}><span>{msg.dateEnvoi.split('T')[0]} </span><span>{msg.heureMessage} </span> </div>
                                         <div
                                             className={`px-3 w-[100%] py-2 my-1 rounded-xl ${msg.emetteurMessageId === storedData.idUtilisateur
-                                                ? 'bg-blue-500 text-white self-end'
-                                                : 'bg-white text-black'
+                                                ? "w-[80%] px-4 py-2 rounded-xl flex place-content-end bg-[#007a55] bg-opacity-80 text-white focus:outline-none focus:bg-opacity-75 ml-auto"
+                                                : "w-[80%] px-4 py-2 rounded-xl bg-slate-500 bg-opacity-70 focus:outline-none focus:bg-opacity-75"
                                                 }`}
                                         >
 
