@@ -16,6 +16,7 @@ import Map from './pages/Map.jsx';
 import Forum from './pages/Forum.jsx';
 import ProfilePic from './pages/ProfilePic.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
+import Profil from './pages/Profil.jsx'
 
 const ProtectedRoute = ({ element }) => {
   const navigate = useNavigate();
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
       {
         path: '/forum',
         element: <Forum />
+      },
+      {
+        path: '/profil',
+        element: <Profil />
       }
     ]
   },
