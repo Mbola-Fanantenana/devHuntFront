@@ -2,18 +2,18 @@ import React from "react";
 
 const Responsable = () => {
   const features = [
-    { name: "Origin", description: "Designed by Good Goods, Inc." },
+    { name: "Administration", description: "Designed by Good Goods, Inc." },
     {
-      name: "Material",
+      name: "Mention",
       description:
         "Solid walnut base with rare earth magnets and powder coated steel card cover",
     },
-    { name: "Dimensions", description: '6.25" x 3.55" x 1.15"' },
+    { name: "Scolarité", description: '6.25" x 3.55" x 1.15"' },
     {
-      name: "Finish",
+      name: "Sécutité",
       description: "Hand sanded and finished with natural oil",
     },
-    { name: "Includes", description: "Wood card tray and 3 refill packs" },
+    { name: "Bibliothèque", description: "Wood card tray and 3 refill packs" },
     {
       name: "Considerations",
       description:
@@ -22,7 +22,7 @@ const Responsable = () => {
   ];
 
   return (
-    <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg">
+    <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md">
       <div className="grid items-center max-w-2xl grid-cols-1 px-4 py-24 mx-auto gap-x-8 gap-y-16 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
         <div>
           <h2 className="text-3xl font-bold tracking-tight text-[#007a55] sm:text-4xl">
