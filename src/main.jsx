@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
@@ -14,6 +15,23 @@ import Page_Content from './pages/Page_Content.jsx';
 import Map from './pages/Map.jsx';
 import Forum from './pages/Forum.jsx';
 import ProfilePic from './pages/ProfilePic.jsx';
+import ErrorPage from './pages/ErrorPage.jsx';
+
+const ProtectedRoute = ({ element }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userSession = localStorage.getItem('userSession');
+
+    if (location.pathname !== '/login' && (token === null || userSession === null)) {
+      navigate('/login');
+    }
+  }, [location.pathname]);
+
+  return element;
+};
 
 const router = createBrowserRouter([
   {
@@ -26,22 +44,22 @@ const router = createBrowserRouter([
   },
   {
     path: '/sign-up',
-    element: <Inscription/>
+    element: <Inscription />
   },
   {
     path: '/photo-profil',
-    element: <ProfilePic/>
+    element: <ProfilePic />
   },
   {
-    element: <Index/>,
+    element: <ProtectedRoute element={<Index/>} />,
     children: [
       {
         path: '/accueil',
-        element: <Accueil/>
+        element: <Accueil />
       },
       {
         path: '/page-content',
-        element: <Page_Content/>
+        element: <Page_Content />
       },
       {
         path: '/responsable',
@@ -49,11 +67,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/entraide',
-        element: <Entraide/>
+        element: <Entraide />
       },
       {
         path: '/information',
-        element: <Information/>
+        element: <Information />
       },
       {
         path: '/map',
@@ -65,7 +83,10 @@ const router = createBrowserRouter([
       }
     ]
   },
-
+  {
+    path: '*',
+    element: <ErrorPage/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

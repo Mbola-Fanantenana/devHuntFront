@@ -143,7 +143,7 @@ const Authentification = () => {
                     {error}
                 </ErrorModal>
                 {showToast && (
-                    <Toast message="Connecter avec succès !" />
+                    <Toast message="Vous êtes bien connecter !" />
                 )}
             </div>
             <Footer textColor="#323232" copyright="&copy; < Minds Merge /> - 2024" />
