@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import axios from "axios";
 import config from "../../config.json";
 import botAvatar from '../assets/Image/Bot avatar.jpg';
+import avatar from '../assets/Image/avatar.jpg';
 
 const Navbar = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -76,7 +77,10 @@ const Navbar = () => {
     return (
         <>
             <div className="p-4 m-2 flex justify-between items-center bg-[#119877] bg-opacity-60 backdrop-blur-md shadow-lg rounded">
-                <Link to={'/accueil'} className="text-white text-lg flex items-center">Navbar</Link>
+                <Link className="text-white flex items-center bg-[#119877] bg-opacity-50 hover:bg-opacity-70 py-1 px-2 rounded-3xl">
+                    <img src={avatar} alt="" className="rounded-full w-8 h-8 mr-2" />
+                    <h1 className="text-[#323232]">Pseudo</h1>
+                </Link>
                 <div className="flex">
                     <button className="text-white mx-4" onClick={openChat}>
                         <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
