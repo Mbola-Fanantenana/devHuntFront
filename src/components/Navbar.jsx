@@ -1,7 +1,10 @@
 /* eslint-disable react/no-unknown-property */
 import { Link } from "react-router-dom"
 import ConfirmModal from "./ConfirmModal"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from "axios";
+import config from "../../config.json";
+import botAvatar from '../assets/Image/Bot avatar.jpg';
 
 const Navbar = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,12 +33,52 @@ const Navbar = () => {
         setIsModalOpen(false);
     };
 
+    const [showChat, setShowChat] = useState(false);
+
+    const openChat = () => {
+        setShowChat(true);
+    };
+
+    const closeChat = () => {
+        setShowChat(false);
+    };
+
+    const [prompt, setPrompt] = useState("");
+    const [response, setResponse] = useState([]);
+    const [history, setHistory] = useState([]);
+    const [question, setQuestion] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get(`${config.API_HOST}/api/history`)
+            .then((response) => {
+                setHistory(response.data.history);
+            })
+            .catch((error) => console.error(error));
+    }, []);
+
+    const handleGenerateResponse = async () => {
+        try {
+            setPrompt('');
+            setQuestion((prevQuestion) => [...prevQuestion, prompt]);
+
+            const result = await axios.post(`${config.API_HOST}/api/generate`, {
+                prompt,
+            });
+
+            setResponse(result.data);
+            console.log(result.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <>
             <div className="p-4 m-2 flex justify-between items-center bg-[#119877] bg-opacity-60 backdrop-blur-md shadow-lg rounded">
                 <Link to={'/accueil'} className="text-white text-lg flex items-center">Navbar</Link>
                 <div className="flex">
-                    <Link className="text-white mx-4">
+                    <button className="text-white mx-4" onClick={openChat}>
                         <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -43,8 +86,9 @@ const Navbar = () => {
                                 <path d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM8.5 6.38C9.53 6.38 10.38 7.22 10.38 8.26C10.38 9.3 9.54 10.14 8.5 10.14C7.46 10.14 6.62 9.28 6.62 8.25C6.62 7.22 7.47 6.38 8.5 6.38ZM12 19.08C9.31 19.08 7.12 16.89 7.12 14.2C7.12 13.5 7.69 12.92 8.39 12.92H15.59C16.29 12.92 16.86 13.49 16.86 14.2C16.88 16.89 14.69 19.08 12 19.08ZM15.5 10.12C14.47 10.12 13.62 9.28 13.62 8.24C13.62 7.2 14.46 6.36 15.5 6.36C16.54 6.36 17.38 7.2 17.38 8.24C17.38 9.28 16.53 10.12 15.5 10.12Z" fill="#ddd"></path>
                             </g>
                         </svg>
-                    </Link>
-                    <Link className="text-white mx-4">
+                    </button>
+
+                    <Link to={'/message'} className="text-white mx-4">
                         <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -76,6 +120,72 @@ const Navbar = () => {
             >
                 Êtes-vous sûr de vouloir effectuer cette action ?
             </ConfirmModal>
+            {showChat && (
+                <>
+                    <div className="relative flex justify-end mr-10">
+                        <div className="fixed inset-0 backdrop-filter backdrop-blur-lg"></div>
+                        <div className="flex flex-col rounded absolute z-50" style={{ width: '30%', height: '500px' }}>
+                            <div className="bg-[#ddd] py-2 border-b-2 flex items-center justify-between pl-8 pr-4">
+                                <div className="flex items-center">
+                                    <img src={botAvatar} alt="" className="rounded-full w-8 h-8 mr-2" />
+                                    <h1>Akama Bot</h1>
+                                </div>
+                                <button
+                                    className="text-gray-500 hover:text-gray-700 flex place-content-end"
+                                    onClick={closeChat}
+                                >
+                                    <svg width="35px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path d="M6.99486 7.00636C6.60433 7.39689 6.60433 8.03005 6.99486 8.42058L10.58 12.0057L6.99486 15.5909C6.60433 15.9814 6.60433 16.6146 6.99486 17.0051C7.38538 17.3956 8.01855 17.3956 8.40907 17.0051L11.9942 13.4199L15.5794 17.0051C15.9699 17.3956 16.6031 17.3956 16.9936 17.0051C17.3841 16.6146 17.3841 15.9814 16.9936 15.5909L13.4084 12.0057L16.9936 8.42059C17.3841 8.03007 17.3841 7.3969 16.9936 7.00638C16.603 6.61585 15.9699 6.61585 15.5794 7.00638L11.9942 10.5915L8.40907 7.00636C8.01855 6.61584 7.38538 6.61584 6.99486 7.00636Z" fill="#0F0F0F"></path>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div className={'p-2 bg-[#ddd]'} style={{ maxHeight: '100%', overflowY: 'auto' }}>
+                                <div className={'my-5'}>
+                                    <div className={'flex flex-col p-2 space-y-2'}>
+                                        {question.map((item, index) => (
+                                            <div key={index} className="message-wrapper space-y-2">
+                                                <div className={'w-[80%] px-4 py-2 rounded-xl flex place-content-end bg-white bg-opacity-50 focus:outline-none focus:bg-opacity-75 ml-auto'}>
+                                                    {item}
+                                                </div>
+                                                <div className="flex">
+                                                    <img src={botAvatar} alt="" className="rounded-full w-8 h-8 mr-2" />
+                                                    {!response[index] ? (
+                                                        <div className="w-[80%] px-4 py-2 rounded-xl bg-slate-700 bg-opacity-70 focus:outline-none focus:bg-opacity-75">
+                                                            ....
+                                                        </div>
+                                                    ) : (
+                                                        <div className="w-[80%] px-4 py-2 rounded-xl bg-slate-700 bg-opacity-70 focus:outline-none focus:bg-opacity-75">
+                                                            {response[index]}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={'p-2 bg-[#ddd] sticky bottom-0 flex space-x-2'}>
+                                <input
+                                    type="text"
+                                    value={prompt}
+                                    className="w-full px-4 py-2 rounded-md bg-white bg-opacity-50 focus:outline-none focus:bg-opacity-75"
+                                    onChange={(e) => setPrompt(e.target.value)}
+                                    placeholder="Envoyer un message ..."
+                                />
+                                <button className="bg-[#007a55] w-[30%] bg-opacity-60 hover:bg-opacity-80 text-white py-2 px-2 flex justify-center rounded-md focus:outline-none text-lg font-medium" onClick={handleGenerateResponse}>
+                                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18.0693 8.50867L9.50929 4.22867C3.75929 1.34867 1.39929 3.70867 4.27929 9.45867L5.14929 11.1987C5.39929 11.7087 5.39929 12.2987 5.14929 12.8087L4.27929 14.5387C1.39929 20.2887 3.74929 22.6487 9.50929 19.7687L18.0693 15.4887C21.9093 13.5687 21.9093 10.4287 18.0693 8.50867ZM14.8393 12.7487H9.43929C9.02929 12.7487 8.68929 12.4087 8.68929 11.9987C8.68929 11.5887 9.02929 11.2487 9.43929 11.2487H14.8393C15.2493 11.2487 15.5893 11.5887 15.5893 11.9987C15.5893 12.4087 15.2493 12.7487 14.8393 12.7487Z" fill="#ddd"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
         </>
     )
 }
