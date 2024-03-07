@@ -18,6 +18,7 @@ import ProfilePic from './pages/ProfilePic.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import Profil from './pages/Profil.jsx'
 import Message from './pages/Message.jsx'
+import FaceAuthentification from './pages/FaceAuthentification.jsx'
 
 const ProtectedRoute = ({ element }) => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const ProtectedRoute = ({ element }) => {
 
     if (location.pathname !== '/login' && (token === null || userSession === null)) {
       navigate('/login');
+      //navigate('/sign-up-with-faceID');
     }
   }, [location.pathname]);
 
@@ -47,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: '/sign-up',
     element: <Inscription />
+  },
+  {
+    path: '/sign-up-with-faceID',
+    element: <FaceAuthentification />
   },
   {
     path: '/photo-profil',
