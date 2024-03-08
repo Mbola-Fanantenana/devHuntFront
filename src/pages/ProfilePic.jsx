@@ -9,6 +9,8 @@ const ProfilePic = () => {
     const [zoom, setZoom] = useState(1);
     const [user, setUser] = useState('');
 
+    console.log("env", import.meta.env.VITE_API_HOST);
+
     useEffect(() => {
         axios.get(`${config.API_HOST}/api/user/${param.idUtilisateur}`).then((response) => {
             setUser(response.data);
@@ -17,36 +19,48 @@ const ProfilePic = () => {
         });
     }, []);
 
-    const handleFileInputChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            setImgURL(URL.createObjectURL(file));
-        }
-    };
-
     const handleZoomChange = (event) => {
         const newZoom = parseFloat(event.target.value);
         setZoom(newZoom);
     };
 
+    const imgURLChangeHandler = (e) => {
+        const file = e.target.files[0];
+        setImgURL(file);
+    };
+
+    const submitActionHandler = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append("imgUtilisateur", imgURL);
+
+        axios.put(`${config.API_HOST}/api/updateUser/${param.idUtilisateur}`, formData)
+            .then(() => {
+                console.log("modification mety");
+            })
+            .catch((error) => {
+                console.log("Une erreur est survenue lors de la modification.", error);
+            });
+    };
 
 
     return (
         <div className="bg-[#ddd] w-full h-screen flex items-center justify-center">
-            <form className="flex flex-col justify-center items-center p-4 m-2 bg-white bg-opacity-25 w-[60%] h-[70%] backdrop-blur-md shadow-lg rounded-lg space-y-2">
+            <form className="flex flex-col justify-center items-center p-4 m-2 bg-white bg-opacity-25 w-[60%] h-[70%] backdrop-blur-md shadow-lg rounded-lg space-y-2" onSubmit={submitActionHandler}>
                 <h1 className="font-medium text-xl">Ajouter une photo de profil</h1>
                 <hr className="border-t border-slate-400 w-full" />
                 {user && (
                     <>
-                        <p>{user.nomUtilisateur} {user.prenomUtilisateur}</p>
+                        <p className="text-medium">{user.nomUtilisateur} {user.prenomUtilisateur}</p>
                     </>
                 )}
                 <div className="w-1/2 flex justify-center relative">
                     <label htmlFor="fileInput" className="custom-file-upload">
-                        <input type="file" id="fileInput" className="hidden" onChange={handleFileInputChange} />
-                        <div className="flex items-center justify-center w-[200px] h-[200px] border border-dashed border-[#26393D] rounded-full overflow-hidden relative">
+                        <input type="file" id="fileInput" className="hidden" onChange={imgURLChangeHandler} />
+                        <div className="flex items-center justify-center w-[250px] h-[250px] border border-dashed border-[#26393D] rounded-full overflow-hidden relative">
                             {imgURL && (
-                                <img src={imgURL} alt="Preview" className="w-full h-full object-cover" style={{ transform: `scale(${zoom})` }} />
+                                <img src={imgURL && URL.createObjectURL(imgURL)} alt="Preview" className="w-full h-full object-cover" style={{ transform: `scale(${zoom})` }} />
                             )}
                             {!imgURL && (
                                 <p className="text-[#26393D] text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">Cliquez ici pour ajouter l&#39;image.</p>

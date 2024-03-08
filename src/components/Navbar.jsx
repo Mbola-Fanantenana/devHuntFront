@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import { Link } from "react-router-dom";
 import ConfirmModal from "./ConfirmModal";
@@ -91,10 +92,10 @@ const Navbar = () => {
           className="text-white flex items-center bg-[#119877] bg-opacity-50 hover:bg-opacity-70 py-1 px-2 rounded-3xl"
         >
           <img src={avatar} alt="" className="w-8 h-8 mr-2 rounded-full" />
-          <h1 className="text-[#323232]">Bienvenue, {pseudoUtilisateur}</h1>
+          <h1 className="text-[#323232]">Bienvenue, <span className="font-medium">{pseudoUtilisateur}</span></h1>
         </Link>
         <div className="flex">
-          <button className="mx-4 text-white" onClick={openChat}>
+          <button className="mx-4 text-white" onClick={openChat} title="ChatBot">
             <svg
               width="20px"
               height="20px"
@@ -116,8 +117,7 @@ const Navbar = () => {
               </g>
             </svg>
           </button>
-
-          <Link to={"/message"} className="mx-4 text-white">
+          <Link to={"/message"} className="mx-4 text-white" title="Messages">
             <svg
               width="20px"
               height="20px"
@@ -143,7 +143,7 @@ const Navbar = () => {
               </g>
             </svg>
           </Link>
-          <Link to={"/map"} className="mx-4 text-white">
+          <Link to={"/map"} className="mx-4 text-white" title="Localisation">
             <svg
               width="20px"
               height="20px"
@@ -165,7 +165,7 @@ const Navbar = () => {
               </g>
             </svg>
           </Link>
-          <button className="mx-4 text-white" onClick={handleOpenModal}>
+          <button className="mx-4 text-white" onClick={handleOpenModal} title="Déconnexion">
             <svg
               width="20px"
               height="20px"

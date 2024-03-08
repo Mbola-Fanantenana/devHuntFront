@@ -83,12 +83,16 @@ const Authentification = () => {
         }
     }, [])
 
+    useEffect(() => {
+        document.title = 'ENI Novice | Authentification'
+    })
+
     return (
         <div className="bg-[#ddd] min-h-screen flex flex-col">
             <div className="flex items-center justify-center flex-grow">
                 <div className='relative md:w-[40%] sm:w-[40%]'>
-                    <p className="absolute flex items-center xl:text-4xl sm:block xs:block mt-10 text-[#323232] text-opacity-80 backdrop-blur-lg">Découvrez la technologie différemment.</p>
-                    <div className={`relative xl:w-[100%] lg:w-[100%] md:w-[100%] sm:block xs:block`}>
+                    <p className="absolute flex items-center xl:text-4xl xl:block mt-10 text-[#323232] text-opacity-80 backdrop-blur-lg 2xl:text-purple-600 xl:text-red-600 md:text-blue-600 lg:text-green-600">Découvrez la technologie différemment.</p>
+                    <div className={`relative xl:w-[100%] lg:w-[100%] md:w-[100%] sm:hidden xs:hidden md:block lg:block xl:block`}>
                         <Lottie
                             animationData={LoginAnimation}
                             loop={true}
@@ -96,9 +100,9 @@ const Authentification = () => {
                             className="w-full h-auto"
                         />
                     </div>
-                    <p className="absolute flex items-center xl:text-4xl sm:block -mt-20 text-[#323232] text-opacity-80 backdrop-blur-lg">Au-delà de votre imagination.</p>
+                    <p className="absolute flex items-center xl:text-4xl xl:block lg:block md:block sm:hidden -mt-20 text-[#323232] text-opacity-80 backdrop-blur-lg">Au-delà de votre imagination.</p>
                 </div>
-                <div className="relative w-full max-w-md p-8 border border-gray-200 rounded md:bg-white md:bg-opacity-80 sm:bg-transparent backdrop-blur-lg md:w-auto">
+                <div className="relative w-full max-w-md p-8 border border-gray-200 rounded md:bg-white md:bg-opacity-80 sm:bg-white backdrop-blur-lg md:w-auto">
                     <h2 className="text-3xl font-bold text-[#323232] mb-4">Connectez-vous</h2>
                     <hr className="border-t border-[#323232] border-opacity-50 mb-2" />
                     <form>
