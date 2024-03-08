@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Lottie from "lottie-react";
@@ -124,6 +124,11 @@ const Inscription = () => {
     setSuccess(null);
     navigate('/photo-profil/${idUtilisateur}');
   };
+
+  useEffect(() => {
+    document.title = 'ENI Novice | Inscription'
+})
+
 
   return (
     <div className="flex flex-col min-h-screen bg-[#ddd]">

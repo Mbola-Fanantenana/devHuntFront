@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import image1 from '../assets/Image/1.jpg'
 import image2 from '../assets/Image/2.jpg'
 import image3 from '../assets/Image/3.jpg'
@@ -17,6 +17,11 @@ const Accueil = () => {
   const prevSlide = () => {
     setCurrentSlide((prevSlide) => (prevSlide === 0 ? images.length - 1 : prevSlide - 1));
   };
+
+  useEffect(() => {
+    document.title = 'ENI Novice | Accueil'
+  })
+
 
   return (
     <>
