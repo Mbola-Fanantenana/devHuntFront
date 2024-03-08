@@ -24,7 +24,7 @@ const FaceAuthentification = () => {
     const faceApiIntervalRef = useRef();
     const videoWidth = 440;
     const videoHeight = 360;
-    const [token,setToken]=useState();
+    const [token, setToken] = useState();
     const [error, setError] = useState(null);
     const [imageURL, setImageURL] = useState('');
     const [showToast, setShowToast] = useState(false);
@@ -76,7 +76,7 @@ const FaceAuthentification = () => {
                 .getContext("2d")
                 .clearRect(0, 0, videoWidth, videoHeight);
             faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
-           // faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
+            // faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
 
             if (results.length > 0 && tempAccount.pseudoUtilisateur === results[0].label) {
                 setLoginResult("SUCCESS");
@@ -100,7 +100,7 @@ const FaceAuthentification = () => {
 
     const handleShowToast = () => {
         setShowToast(true);
-    }; 
+    };
     // Navigation et obtention du token (code a modiflier)
     const navigate = useNavigate();
     useEffect(() => {
@@ -117,7 +117,7 @@ const FaceAuthentification = () => {
                 });
                 clearInterval(counterInterval);
                 clearInterval(faceApiIntervalRef.current);
-                localStorage.setItem("token",JSON.stringify(token))
+                localStorage.setItem("token", JSON.stringify(token))
                 localStorage.setItem(
                     "userSession",
                     JSON.stringify(tempAccount)
@@ -125,8 +125,8 @@ const FaceAuthentification = () => {
                 setFormData(initialFormState);
                 handleShowToast()
                 setTimeout(() => (
-                navigate('/accueil')
-            ), 5000);
+                    navigate('/accueil')
+                ), 5000);
 
             }
 
@@ -162,33 +162,33 @@ const FaceAuthentification = () => {
                     'Access-Control-Allow-Origin': '*',
                 },
             });
-        
+
             // Créez un objet Blob à partir du tableau d'octets
             const blob = new Blob([response.data]);
-           // const imageURL = URL.createObjectURL(blob);
-        //setImageURL(imageURL);
+            // const imageURL = URL.createObjectURL(blob);
+            //setImageURL(imageURL);
             // Utilisez la fonction bufferToImage avec le Blob créé
             img = await faceapi.bufferToImage(blob);
-            
+
         } catch (error) {
             console.error("Erreur lors du chargement de l'image :", error);
             setError("Impossible de charger votre photo ! Veuillez vous connecter avec votre mot de passe");
             return;
         }
-        
-    
+
+
         const detections = await faceapi
             .detectSingleFace(img)
             .withFaceLandmarks()
             .withFaceDescriptor();
-    
+
         if (detections) {
             descriptions.push(detections.descriptor);
         }
         const label = String(tempAccount.pseudoUtilisateur)
         return new faceapi.LabeledFaceDescriptors(label, descriptions);
     }
-    
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
@@ -205,8 +205,8 @@ const FaceAuthentification = () => {
             return;
         }
         console.log(formData.pseudoUtilisateur)
-        try{
-            const response = await axios.post(`${config.API_HOST}/api/faceAuth`, JSON.stringify(formData), 
+        try {
+            const response = await axios.post(`${config.API_HOST}/api/faceAuth`, JSON.stringify(formData),
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -217,7 +217,7 @@ const FaceAuthentification = () => {
             console.log(response.data.user)
             setTempAccount(response.data.user);
             setToken(response.data.token);
-        }catch (error){
+        } catch (error) {
             setError("Le nom d'utilisateur est incorrecte !");
         }
     };
@@ -226,7 +226,7 @@ const FaceAuthentification = () => {
     }
 
     useEffect(() => {
-        if(localStorage.getItem('token') !== null && localStorage.getItem('userSession') !== null) {
+        if (localStorage.getItem('token') !== null && localStorage.getItem('userSession') !== null) {
             navigate('/accueil');
         }
     }, [])
@@ -247,14 +247,14 @@ const FaceAuthentification = () => {
                     </div>
                     <p className="absolute flex items-center -mt-20 text-gray-600 text-opacity-50 xl:text-4xl sm:block backdrop-blur-lg">Au delà de votre imagination.</p>
                 </div>
-                <div className="relative w-full max-w-md p-8 rounded-lg md:bg-white md:bg-opacity-20 sm:bg-transparent backdrop-blur-lg md:w-auto">
-                    <h2 className="mb-4 text-3xl font-bold text-white">Connectez-vous</h2>
-                    <hr className="mb-2 border-t border-white border-opacity-50" />
+                <div className="relative w-full max-w-md p-8 border border-gray-200 rounded md:bg-white md:bg-opacity-80 sm:bg-white backdrop-blur-lg md:w-auto">
+                    <h2 className="text-3xl font-bold text-[#323232] mb-4">Connectez-vous</h2>
+                    <hr className="border-t border-[#323232] border-opacity-50 mb-2" />
                     <form>
                         <div className="mb-4">
-                            <label htmlFor="email" className="block mb-1 text-white">Nom d&#39;utilisateur</label>
+                            <label htmlFor="email" className="text-[#323232] block mb-1">Nom d&#39;utilisateur</label>
                             <input
-                                className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
+                                className="w-full px-4 py-2 bg-opacity-50 rounded bg-slate-300 focus:outline-none focus:bg-opacity-80"
                                 name="pseudoUtilisateur"
                                 id="email"
                                 type="text"
@@ -265,7 +265,7 @@ const FaceAuthentification = () => {
                         <button
                             onClick={valid}
                             type="button"
-                            className="w-full px-4 py-2 text-lg font-medium text-white bg-white bg-opacity-25 rounded-md hover:bg-opacity-50 focus:outline-none"
+                            className="bg-[#007a55] w-full bg-opacity-60 hover:bg-opacity-80 text-white py-2 px-4 rounded focus:outline-none text-lg font-medium"
                         >Suivant</button>
                         <div className="w-full mb-4">
                             <div className="relative flex flex-col items-center">
@@ -306,19 +306,19 @@ const FaceAuthentification = () => {
                         )}
                         {!localUserStream && (
                             <>
-                                {modelsLoaded ? (
+                                {modelsLoaded && tempAccount ? (
                                     <>
                                         <button
                                             onClick={getLocalUserVideo}
                                             type="button"
                                             className="flex justify-center items-center w-full py-2.5 px-5 mr-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg border border-gray-200 inline-flex items-center"
                                         >
-                                            Scan my face
+                                            Scanner
                                         </button>
                                     </>
                                 ) : (
                                     <>
-                                        <button
+                                        {/* <button
                                             disabled
                                             type="button"
                                             className="cursor-not-allowed flex justify-center items-center w-full py-2.5 px-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 inline-flex items-center"
@@ -341,13 +341,13 @@ const FaceAuthentification = () => {
                                                 />
                                             </svg>
                                             Veuillez patienter pendant le chargement des modèles...
-                                        </button>
+                                        </button> */}
                                     </>
                                 )}
                             </>
                         )}
                     </form>
-                    <p className="mt-4 text-white">Vous n&#39;avez pas de compte ? <Link to="/sign-up" className="text-blue-300 hover:text-blue-400">Inscrivez-vous</Link></p>
+                    <p className="mt-4 text-[#323232]">Vous n&#39;avez pas de compte ? <Link to="/sign-up" className="text-[#007a55] hover:text-emerald-700">Inscrivez-vous</Link></p>
                 </div>
                 <ErrorModal isOpen={error !== null} onClose={handleCloseErrorModal} titleMessage="Message d'erreur">
                     {error}
