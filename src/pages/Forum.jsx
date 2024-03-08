@@ -33,7 +33,6 @@ const Forum = () => {
 
   };
   const [imagURL, setImgURL] = useState(null);
-  const [test, setTest] = useState(null);
 
   const [formData, setFormData] = useState(initialFormState);
   const [formDataCom, setFormDataCom] = useState(initialFormStateCom);
@@ -48,7 +47,14 @@ const Forum = () => {
       .get(`${config.API_HOST}/api/forums`)
       .then((response) => {
         setForum(response.data);
-        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios.get(`${config.API_HOST}/api/forum/comments/${formCom}`)
+      .then((response) => {
+        setCommentForum(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -127,9 +133,8 @@ const Forum = () => {
     axios
       .post(`${config.API_HOST}/api/createForum`, formaData)
       .then(() => {
-        console.log("Forum créé !!!!!");
         handleCloseModal()
-        setDataChanged;
+        setDataChanged(!dataChanged);
       })
       .catch((error) => {
         setError(error);
@@ -149,7 +154,6 @@ const Forum = () => {
         });
 
         setImgURL(response.data.imgForum);
-        console.log(response.data.imgForum);
       })
       .catch((error) => {
         setError(error);
@@ -179,7 +183,6 @@ const Forum = () => {
   };
 
   const handleDelete = (idForum) => {
-    console.log(userConnected);
     axios
       .delete(`${config.API_HOST}/api/deleteForum/${idForum}`)
       .then(() => {
@@ -201,8 +204,9 @@ const Forum = () => {
     axios
       .post(`${config.API_HOST}/api/createCom`, formDataComAttend)
       .then(() => {
-        console.log("mety");
-        setDataChanged;
+        setFormDataCom(initialFormStateCom);
+        setDataChanged(!dataChanged);
+        setCom('');
       })
       .catch((error) => {
         console.error("Erreur lors de la requête : ", error);
@@ -224,7 +228,7 @@ const Forum = () => {
     axios.get(`${config.API_HOST}/api/forum/comments/${idForum}`)
       .then((response) => {
         setCommentForum(response.data);
-        console.log(response.data);
+        setDataChanged(!dataChanged);
       })
       .catch((error) => {
         console.log(error);
@@ -234,7 +238,7 @@ const Forum = () => {
       .get(`${config.API_HOST}/api/forum/${idForum}`)
       .then((response) => {
         setForumById(response.data);
-        console.log(response.data);
+        setDataChanged(!dataChanged);
       })
       .catch((error) => {
         console.log(error);
@@ -389,6 +393,11 @@ const Forum = () => {
                         <path d="M17 2H7C4.24 2 2 4.23 2 6.98V12.96V13.96C2 16.71 4.24 18.94 7 18.94H8.5C8.77 18.94 9.13 19.12 9.3 19.34L10.8 21.33C11.46 22.21 12.54 22.21 13.2 21.33L14.7 19.34C14.89 19.09 15.19 18.94 15.5 18.94H17C19.76 18.94 22 16.71 22 13.96V6.98C22 4.23 19.76 2 17 2ZM8 12C7.44 12 7 11.55 7 11C7 10.45 7.45 10 8 10C8.55 10 9 10.45 9 11C9 11.55 8.56 12 8 12ZM12 12C11.44 12 11 11.55 11 11C11 10.45 11.45 10 12 10C12.55 10 13 10.45 13 11C13 11.55 12.56 12 12 12ZM16 12C15.44 12 15 11.55 15 11C15 10.45 15.45 10 16 10C16.55 10 17 10.45 17 11C17 11.55 16.56 12 16 12Z" fill="#292D32"></path>
                       </g>
                     </svg>
+                    {/* <div className="text-5xl">{item.nombreComs}</div> */}
+                    <span
+                      className="rounded-full py-1 px-1 text-xs font-medium content-[''] top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-[#ea4444] text-white min-w-[30px] min-h-[30px]">
+                        <span className="text-green-800 font-bold">{item.nombreComs}</span>
+                    </span>
                   </button>
                 </div>
               </div>
