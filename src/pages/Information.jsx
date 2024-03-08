@@ -13,7 +13,12 @@ const Information = () => {
   const [imgURL, setImgURL] = useState(null);
   const [idModifier, setIdModifier] = useState("");
   const [showToast, setShowToast] = useState(false);
-  const [dataChanged, setDataChanged] = useState(false)
+  const [dataChanged, setDataChanged] = useState(false);
+  const [showMore, setShowMore] = useState(false);
+
+  const toggleShowMore = () => {
+    setShowMore(!showMore);
+  };
 
   useEffect(() => {
     const userLocaleStorage = localStorage.getItem("userSession");
@@ -168,7 +173,7 @@ const Information = () => {
     <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md h-[520px] overflow-auto no-scrollbar">
       <div>
         <button
-          className="px-4 py-2 rounded bg-emerald-500"
+          className="px-4 py-2 rounded bg-emerald-500 text-white"
           onClick={handleOpenModal}
         >
           Ajouter

@@ -36,11 +36,20 @@ const SpeechRecognitionComponent = ({ onResult }) => {
   };
 
   return (
-    <div>
-      <button onClick={handleToggleListening}>
-        {listening ? 'Stop Listening' : 'Start Listening'}
-      </button>
+    <div className="relative">
+      <input
+        type="checkbox"
+        id="toggleListening"
+        checked={listening}
+        onChange={handleToggleListening}
+        className="sr-only"
+      />
+      <label htmlFor="toggleListening" className={`block w-12 h-6 overflow-hidden rounded-full cursor-pointer ${listening ? 'bg-[#279E81]' : 'bg-gray-400'}`}>
+        <div className={`block h-full w-6 rounded-full bg-white shadow-md transform transition-transform duration-300 ${listening ? 'translate-x-full' : ''}`}></div>
+      </label>
+      <span className={`absolute left-0 ml-3 text-xs ${listening ? 'text-[#323232]' : 'text-[#323232]'}`}>{listening ? 'ON' : 'OFF'}</span>
     </div>
+
   );
 };
 
