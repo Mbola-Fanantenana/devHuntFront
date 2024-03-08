@@ -47,6 +47,10 @@ function Map() {
     });
   }, []);
 
+  useEffect(() => {
+    document.title = 'ENI Novice | Localisation'
+  })
+
   return <div id="mapId" style={{ height: "85%", width: "98%" }} className="flex-1 p-4 m-2 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg"></div>;
 }
 

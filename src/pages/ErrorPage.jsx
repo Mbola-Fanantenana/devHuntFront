@@ -1,8 +1,13 @@
 import Lottie from 'lottie-react';
 import E404 from '../assets/Lotties/404.json';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const ErrorPage = () => {
+  useEffect(() => {
+    document.title = 'ENI Novice | Page d\'erreur'
+  })
+
   return (
     <div className='bg-[#ddd]'>
       <div className='flex flex-col h-screen space-y-8 justify-center items-center'>

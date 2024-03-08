@@ -61,6 +61,10 @@ const Forum = () => {
       });
   }, [dataChanged]);
 
+  useEffect(() => {
+    document.title = 'ENI Novice | Forum'
+  })
+
   function getCurrentTime() {
     const now = new Date();
 

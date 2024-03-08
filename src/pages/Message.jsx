@@ -40,6 +40,10 @@ function Message() {
     }, [dataChanged]);
 
     useEffect(() => {
+        document.title = 'ENI Novice | Messages'
+    })
+
+    useEffect(() => {
         const fetchConversation = async () => {
             axios
                 .get(`${api.API_HOST}/api/getConversationDeuxUser/${recepteur}/${storedData.idUtilisateur}`)
@@ -186,7 +190,7 @@ function Message() {
                     <div className='flex justify-center my-4 space-x-3'>
                         <div className="relative inline-flex ">
                             <button onClick={setLoadingTrue}
-                                className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-[#007a55] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+                                className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded bg-[#007a55] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
                                 type="button">
                                 En ligne
                             </button>
@@ -201,7 +205,7 @@ function Message() {
                         </div>
                         <div className="relative inline-flex">
                             <button onClick={setLoadingFalse}
-                                className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded-lg bg-[#007a55] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+                                className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 rounded bg-[#007a55] text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
                                 type="button">
                                 Discussion
                             </button>
@@ -224,112 +228,99 @@ function Message() {
                         className="px-2 border-gray-500 w-full py-2 rounded"
                     />
                     <hr className={`my-1 border-0.3 border-black`} />
-                    {loading ? (
-                        allUser
-                            .filter((user) =>
-                                `${user.nomUtilisateur} ${user.prenomUtilisateur}`
-                                    .toLowerCase()
-                                    .includes(searchTerm.toLowerCase())
-                            )
-                            .map((user, index) => {
-                                const unreadCountData = unreadCounts.find((data) => data.senderId === user.idUtilisateur);
+                    <div className="space-y-2">
+                        {loading ? (
+                            allUser
+                                .filter((user) =>
+                                    `${user.nomUtilisateur} ${user.prenomUtilisateur}`
+                                        .toLowerCase()
+                                        .includes(searchTerm.toLowerCase())
+                                )
+                                .map((user, index) => {
+                                    const unreadCountData = unreadCounts.find((data) => data.senderId === user.idUtilisateur);
 
-                                return (
-                                    <div
-                                        key={index}
-                                        onClick={() => setMessageWith(user.idUtilisateur)}
-                                        className={`flex hover:bg-green-600 px-1 py-1 bg-white rounded-lg items-center cursor-pointer user-item m-2 space-y-1`}
-                                    >
-                                        <div className={`badge ${unreadCountData ? 'badge-unread' : 'badge-read'}`}></div>
-                                        <div className={`ml-4`}>
-                                            <span className="font-bold">{user.nomUtilisateur}</span>
-                                            <span className="ml-2">{user.prenomUtilisateur}</span>
-                                            {/*<span*/}
-                                            {/*    className="rounded-full py-1 px-1 text-xs font-medium content-[''] top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-[#ea4444] text-white min-w-[30px] min-h-[30px]">*/}
-                                            {/*    {unreadCountData && (*/}
-                                            {/*        <span className="text-[#ea4444]">{unreadCountData.unreadCount || ''}</span>*/}
-                                            {/*    )}*/}
-                                            {/*</span>*/}
-
+                                    return (
+                                        <div
+                                            key={index}
+                                            onClick={() => setMessageWith(user.idUtilisateur)}
+                                            className={`flex hover:bg-green-600 px-1 py-2 bg-[#fff] rounded items-center cursor-pointer w-full`}
+                                        >
+                                            <div className={`badge ${unreadCountData ? 'badge-unread' : 'badge-read'}`}></div>
+                                            <div className={`mx-2`}>
+                                                <span className="font-bold">{user.nomUtilisateur}</span>
+                                                <span className="ml-2">{user.prenomUtilisateur}</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                );
-                            })
-                    ) : (
-                        conversation
-                            .filter((user) =>
-                                `${user.nomUtilisateur} ${user.prenomUtilisateur}`
-                                    .toLowerCase()
-                                    .includes(searchTerm.toLowerCase())
-                            )
-                            .map((user, index) => {
-                                const unreadCountData = unreadCounts.find((data) => data.senderId === user.idUtilisateur);
-
-                                return (
-                                    <div
-                                        key={index}
-                                        onClick={() => setMessageWith(user.idUtilisateur)}
-                                        className={`px-3 py-1 my-0.5 bg-white rounded-lg cursor-pointer`}
-                                    >
-                                        {user.nomUtilisateur} {user.prenomUtilisateur}
-                                        <span
-                                            className="absolute rounded-full py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white min-w-[30px] min-h-[30px]">
-                                            {unreadCountData && (
-                                                <span className="text-red-500">{unreadCountData.unreadCount || ''}</span>
-                                            )}
-                                        </span>
-                                    </div>
-                                );
-                            })
-                    )}
-                </div>
-                <div className='flex flex-col w-3/4'>
-                    <div className="p-6 overflow-y-auto h-[465px] bg-white rounded-tr-lg border-b border-gray-200">
-
-                        {titreMessage && titreMessage.length === 0 ? (
-                            ''
+                                    );
+                                })
                         ) : (
-                            <>
-                                <div className={`flex space-x-3`}>
-                                    <div
-                                        className={`py-2 px-3 bg-gray-500 text-white rounded-lg text-center my-3`}
-                                    >
-                                        Messages
-                                    </div>
-                                    <div
-                                        className={`py-2 px-3 bg-[#007a55] bg-opacity-50 rounded-lg text-center my-3`}
-                                    >
-                                        {titreMessage.nomUtilisateur} {titreMessage.prenomUtilisateur}
-                                    </div>
-                                </div>
-                                <hr className={`my-1 border-0.3 border-black`} />
-                            </>
+                            conversation
+                                .filter((user) =>
+                                    `${user.nomUtilisateur} ${user.prenomUtilisateur}`
+                                        .toLowerCase()
+                                        .includes(searchTerm.toLowerCase())
+                                )
+                                .map((user, index) => {
+                                    const unreadCountData = unreadCounts.find((data) => data.senderId === user.idUtilisateur);
+
+                                    return (
+                                        <div
+                                            key={index}
+                                            onClick={() => setMessageWith(user.idUtilisateur)}
+                                            className={`px-3 py-1 my-0.5 bg-white rounded-lg cursor-pointer`}
+                                        >
+                                            {user.nomUtilisateur} {user.prenomUtilisateur}
+                                            <span
+                                                className="absolute rounded-full py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white min-w-[30px] min-h-[30px]">
+                                                {unreadCountData && (
+                                                    <span className="text-red-500">{unreadCountData.unreadCount || ''}</span>
+                                                )}
+                                            </span>
+                                        </div>
+                                    );
+                                })
                         )}
+                    </div>
+                </div>
+                <div className='flex flex-col w-3/4 rounded-r-md bg-[#ddd]'>
+                    {titreMessage && titreMessage.length === 0 ? (
+                        ''
+                    ) : (
+                        <>
+                            <div className={`flex rounded-tr-lg`}>
+                                <div
+                                    className={`py-2 px-4 bg-[#007a55] bg-opacity-50 rounded ml-4 text-center my-3 shadow shadow-gray-200`}
+                                >
+                                    {titreMessage.nomUtilisateur} {titreMessage.prenomUtilisateur}
+                                </div>
+                            </div>
+                        </>
+                    )}
+                    {/* <hr className={`my-1 border-0.3 border-black`} /> */}
+                    <div className="px-6 overflow-auto h-[390px] bg-[#f2f2f2] border-b border-gray-200">
                         {message && message.length !== 0 ? (
-                            <div className={`flex flex-col items-center justify-center`}>
+                            <div className={`flex flex-col items-center justify-center p-6`}>
                                 {message.map((msg, index) => (
-                                    <div key={index} className='w-[100%]  m-3 space-y-3'>
+                                    <div key={index} className='w-[100%] m-3 space-y-3'>
                                         <div className={`flex flex-row justify-center text-xs space-x-2`}><span>{msg.dateEnvoi.split('T')[0]} </span><span>{msg.heureMessage} </span> </div>
                                         <div
                                             className={`px-3 w-[100%] py-2 my-1 rounded-xl ${msg.emetteurMessageId === storedData.idUtilisateur
-                                                ? "w-[80%] px-4 py-2 rounded-xl flex place-content-end bg-[#007a55] bg-opacity-80 text-white focus:outline-none focus:bg-opacity-75 ml-auto"
+                                                ? "w-[80%] px-4 py-2 rounded flex place-content-end bg-[#007a55] bg-opacity-80 text-white focus:outline-none focus:bg-opacity-75 ml-auto"
                                                 : "w-[80%] px-4 py-2 rounded-xl bg-slate-500 bg-opacity-70 focus:outline-none focus:bg-opacity-75"
                                                 }`}
                                         >
-
                                             {msg.contenuMessage}
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         ) : (
-                            <>
-                                <div className={`px-3 py-5 text-gray-600 bg-gray-200 rounded-xl`}>
+                            <div className="flex items-center justify-center h-full">
+                                <div className={`px-8 py-5 text-gray-600 bg-gray-300 rounded-md`}>
                                     Aucun message pour le moment ...
                                 </div>
-                            </>
+                            </div>
                         )}
-
                     </div>
 
                     <div className="flex justify-start sticky space-x-2 bottom-0 p-2 rounded-br-lg">
