@@ -15,6 +15,7 @@ const Forum = () => {
   const [com, setCom] = useState("");
   const [formCom, setFormCom] = useState("");
   const [dataChanged, setDataChanged] = useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   const [forum, setForum] = useState([]);
   const [commentForum, setCommentForum] = useState([]);
@@ -186,6 +187,10 @@ const Forum = () => {
       });
   };
 
+  const toggleShowMore = () => {
+    setShowMore(!showMore);
+  };
+
   const handleDelete = (idForum) => {
     axios
       .delete(`${config.API_HOST}/api/deleteForum/${idForum}`)
@@ -270,7 +275,7 @@ const Forum = () => {
   }
 
   return (
-    <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg overflow-auto" style={{ height: '515px' }}>
+    <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 backdrop-blur-md shadow-lg rounded-lg overflow-auto no-scrollbar" style={{ height: '515px' }}>
       <div>
         <button
           className="px-4 py-2 rounded bg-emerald-500 text-white"
@@ -397,7 +402,7 @@ const Forum = () => {
           {forum.map((item) => (
             <div
               key={item.idForum}
-              className="p-4 my-4 bg-white bg-opacity-25 rounded-lg shadow-lg gap-x-6 backdrop-blur-md border rounded-md shadow-md"
+              className="p-4 my-4 bg-[#ddd] bg-opacity-25 rounded-lg shadow-lg gap-x-6 backdrop-blur-md border"
             >
               <div className="flex flex-row justify-between">
                 <div className="flex flex-row space-x-2">
@@ -410,6 +415,10 @@ const Forum = () => {
                     onClick={() => handleCom(item.idForum)}
                     className="px-2 rounded-lg"
                   >
+                    <span
+                      className="absolute rounded-full py-1 px-1 text-xs font-medium content-[''] top-[2%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-[#ea4444] text-white min-w-[20px] min-h-[20px] mr-4 mt-2">
+                      <span className="text-white font-bold flex items-center justify-center place-content-center">{item.nombreComs}</span>
+                    </span>
                     <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                       <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
@@ -417,14 +426,23 @@ const Forum = () => {
                         <path d="M17 2H7C4.24 2 2 4.23 2 6.98V12.96V13.96C2 16.71 4.24 18.94 7 18.94H8.5C8.77 18.94 9.13 19.12 9.3 19.34L10.8 21.33C11.46 22.21 12.54 22.21 13.2 21.33L14.7 19.34C14.89 19.09 15.19 18.94 15.5 18.94H17C19.76 18.94 22 16.71 22 13.96V6.98C22 4.23 19.76 2 17 2ZM8 12C7.44 12 7 11.55 7 11C7 10.45 7.45 10 8 10C8.55 10 9 10.45 9 11C9 11.55 8.56 12 8 12ZM12 12C11.44 12 11 11.55 11 11C11 10.45 11.45 10 12 10C12.55 10 13 10.45 13 11C13 11.55 12.56 12 12 12ZM16 12C15.44 12 15 11.55 15 11C15 10.45 15.45 10 16 10C16.55 10 17 10.45 17 11C17 11.55 16.56 12 16 12Z" fill="#292D32"></path>
                       </g>
                     </svg>
-                    <span
-                      className="rounded-full py-1 px-1 text-xs font-medium content-[''] top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-[#ea4444] text-white min-w-[30px] min-h-[30px]">
-                      <span className="text-green-800 font-bold">{item.nombreComs}</span>
-                    </span>
                   </button>
                 </div>
               </div>
-              <p className="mt-2">{item.contenuForum}</p>
+              <div>
+                {showMore ? (
+                  <p className="mt-2 text-justify">{item.contenuForum}</p>
+                ) : (
+                  <p className="mt-2 text-justify" style={{ maxHeight: "100px", overflow: "hidden" }}>
+                    {item.contenuForum}
+                  </p>
+                )}
+                {item.contenuForum.length > 50 && (
+                  <button onClick={toggleShowMore} className="text-green-500 hover:underline">
+                    {showMore ? "Voir moins" : "Voir plus"}
+                  </button>
+                )}
+              </div>
               <p className="mt-2 flex justify-center">
                 <img
                   src={`${config.API_HOST}/uploads/${item.imgForum}`}
@@ -432,16 +450,26 @@ const Forum = () => {
                   className="w-40 h-40 rounded-md"
                 />
               </p>
-              <textarea
-                name="contenu"
-                id="contenu"
-                cols="10"
-                rows="10"
-                className={`bg-white w-full p-2 border border-gray-400 mt-2 rounded ${com === item.idForum ? 'visible' : 'hidden'}`}
-                onChange={handleInputChangeCom}
-                value={formDataCom.contenu}
-              >
-              </textarea>
+              <div className="flex flex-row">
+                <textarea
+                  name="contenu"
+                  id="contenu"
+                  cols="10"
+                  rows="10"
+                  className={`bg-white h-[80px] w-full p-2 border border-gray-400 mt-2 rounded ${com === item.idForum ? 'visible' : 'hidden'}`}
+                  onChange={handleInputChangeCom}
+                  value={formDataCom.contenu}
+                >
+                </textarea>
+                <button
+                  type="button"
+                  onClick={() => setComNull()}
+                  className={`px-2 rounded-lg ${com === item.idForum ? 'visible' : 'hidden'}`}
+                  title="Annuler"
+                >
+                  <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16.9997 3.75H10.2797C8.86969 3.75 7.52969 4.34 6.57969 5.39L3.04969 9.27C1.63969 10.82 1.63969 13.18 3.04969 14.73L6.57969 18.61C7.52969 19.65 8.86969 20.25 10.2797 20.25H16.9997C19.7597 20.25 21.9997 18.01 21.9997 15.25V8.75C21.9997 5.99 19.7597 3.75 16.9997 3.75ZM16.5297 13.94C16.8197 14.23 16.8197 14.71 16.5297 15C16.3797 15.15 16.1897 15.22 15.9997 15.22C15.8097 15.22 15.6197 15.15 15.4697 15L13.5297 13.06L11.5897 15C11.4397 15.15 11.2497 15.22 11.0597 15.22C10.8697 15.22 10.6797 15.15 10.5297 15C10.2397 14.71 10.2397 14.23 10.5297 13.94L12.4697 12L10.5297 10.06C10.2397 9.77 10.2397 9.29 10.5297 9C10.8197 8.71 11.2997 8.71 11.5897 9L13.5297 10.94L15.4697 9C15.7597 8.71 16.2397 8.71 16.5297 9C16.8197 9.29 16.8197 9.77 16.5297 10.06L14.5897 12L16.5297 13.94Z" fill="#292D32"></path> </g></svg>
+                </button>
+              </div>
               <p className="flex items-center mt-2">
                 <div className={`${userConnected === item.idUtilisateur ? 'visible' : 'hidden'}`}>
                   <button
@@ -462,15 +490,9 @@ const Forum = () => {
                   <button
                     onClick={() => handleDelete(item.idForum)}
                     className="px-2 rounded-lg"
+                    title="Supprimer"
                   >
                     <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21.0697 5.23C19.4597 5.07 17.8497 4.95 16.2297 4.86V4.85L16.0097 3.55C15.8597 2.63 15.6397 1.25 13.2997 1.25H10.6797C8.34967 1.25 8.12967 2.57 7.96967 3.54L7.75967 4.82C6.82967 4.88 5.89967 4.94 4.96967 5.03L2.92967 5.23C2.50967 5.27 2.20967 5.64 2.24967 6.05C2.28967 6.46 2.64967 6.76 3.06967 6.72L5.10967 6.52C10.3497 6 15.6297 6.2 20.9297 6.73C20.9597 6.73 20.9797 6.73 21.0097 6.73C21.3897 6.73 21.7197 6.44 21.7597 6.05C21.7897 5.64 21.4897 5.27 21.0697 5.23Z" fill="#292D32"></path> <path d="M19.2297 8.14C18.9897 7.89 18.6597 7.75 18.3197 7.75H5.67975C5.33975 7.75 4.99975 7.89 4.76975 8.14C4.53975 8.39 4.40975 8.73 4.42975 9.08L5.04975 19.34C5.15975 20.86 5.29975 22.76 8.78975 22.76H15.2097C18.6997 22.76 18.8398 20.87 18.9497 19.34L19.5697 9.09C19.5897 8.73 19.4597 8.39 19.2297 8.14ZM13.6597 17.75H10.3297C9.91975 17.75 9.57975 17.41 9.57975 17C9.57975 16.59 9.91975 16.25 10.3297 16.25H13.6597C14.0697 16.25 14.4097 16.59 14.4097 17C14.4097 17.41 14.0697 17.75 13.6597 17.75ZM14.4997 13.75H9.49975C9.08975 13.75 8.74975 13.41 8.74975 13C8.74975 12.59 9.08975 12.25 9.49975 12.25H14.4997C14.9097 12.25 15.2497 12.59 15.2497 13C15.2497 13.41 14.9097 13.75 14.4997 13.75Z" fill="#292D32"></path> </g></svg>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setComNull()}
-                    className="px-2 rounded-lg"
-                  >
-                    <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16.9997 3.75H10.2797C8.86969 3.75 7.52969 4.34 6.57969 5.39L3.04969 9.27C1.63969 10.82 1.63969 13.18 3.04969 14.73L6.57969 18.61C7.52969 19.65 8.86969 20.25 10.2797 20.25H16.9997C19.7597 20.25 21.9997 18.01 21.9997 15.25V8.75C21.9997 5.99 19.7597 3.75 16.9997 3.75ZM16.5297 13.94C16.8197 14.23 16.8197 14.71 16.5297 15C16.3797 15.15 16.1897 15.22 15.9997 15.22C15.8097 15.22 15.6197 15.15 15.4697 15L13.5297 13.06L11.5897 15C11.4397 15.15 11.2497 15.22 11.0597 15.22C10.8697 15.22 10.6797 15.15 10.5297 15C10.2397 14.71 10.2397 14.23 10.5297 13.94L12.4697 12L10.5297 10.06C10.2397 9.77 10.2397 9.29 10.5297 9C10.8197 8.71 11.2997 8.71 11.5897 9L13.5297 10.94L15.4697 9C15.7597 8.71 16.2397 8.71 16.5297 9C16.8197 9.29 16.8197 9.77 16.5297 10.06L14.5897 12L16.5297 13.94Z" fill="#292D32"></path> </g></svg>
                   </button>
                 </div>
               </p>
