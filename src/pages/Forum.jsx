@@ -369,7 +369,7 @@ const Forum = () => {
         </div>
         <div className={`py-1 h-[200px]`}>
           {commentForum.comments ? (
-            <div className="h-[200px] overFlow-auto ">
+            <div className="h-[200px] overflow-auto ">
               {commentForum.comments.map((item) => (
                 <>
                   <div className={'p-2 my-1 rounded-lg bg-slate-300'}>

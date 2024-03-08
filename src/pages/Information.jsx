@@ -101,6 +101,9 @@ const Information = () => {
       .then(() => {
         handleShowToast();
         setDataChanged(!dataChanged);
+        handleCloseModal();
+        setContenue("");
+        imgURL(null)
       })
       .catch((error) => {
         console.error("Erreur lors de la requête : ", error);
@@ -162,7 +165,7 @@ const Information = () => {
   };
 
   return (
-    <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md">
+    <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md h-[530px] overflow-auto">
       <div>
         <button
           className="px-4 py-2 rounded bg-emerald-500"
