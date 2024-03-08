@@ -1,9 +1,21 @@
-//import avatar from '../assets/Image/avatar.jpg';
 import { Link, useLocation } from 'react-router-dom'
 import logo from '../assets/Image/logo.png'
+import SpeechRecognitionComponent from './SpeechRecognition'
 
 const Sidebar = () => {
     const location = useLocation();
+
+    const handleSpeechResult = (text) => {
+        console.log("message: ", text);
+    
+        if (text.includes("itel")) {
+          console.log("Opening something...");
+          window.location.href = "/information";
+        } else if (text.includes("mimi")) {
+          console.log("Opening something...");
+          window.location.href = "/forum";
+        }
+      };
 
     return (
         <div className="bg-[#119877] bg-opacity-60 backdrop-blur-md rounded p-2 m-2 shadow-lg px-12 max-h-screen w-[15%] flex flex-col justify-center items-center">
@@ -17,6 +29,7 @@ const Sidebar = () => {
                 <Link to={'/entraide'} className={`text-[#323232] px-4 py-2 rounded w-full text-center ${location.pathname === '/entraide' ? 'bg-[#279E81] text-white pr-4' : 'bg-white'}`}>Entraide</Link>
                 <Link to={'/forum'} className={`text-[#323232] px-4 py-2 rounded w-full text-center ${location.pathname === '/forum' ? 'bg-[#279E81] text-white pr-4' : 'bg-white'}`}>Forum</Link>
             </div>
+            <SpeechRecognitionComponent onResult={handleSpeechResult} />
         </div>
     );
 };
