@@ -87,7 +87,9 @@ const Inscription = () => {
               "Content-Type": "application/json",
             },
           })
-          .then(() => {
+          .then((response) => {
+            const accountId = response.data.idUtilisateur;
+            console.log("ID du compte créé :", accountId);
             setFormData(initialFormState);
             setCurrentStep(4);
             console.log("création compte réussie");
