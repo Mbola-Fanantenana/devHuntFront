@@ -79,27 +79,6 @@ const Forum = () => {
     return currentTime;
   }
 
-  function afficherImageEnPleinEcran(imageUrl) {
-    const imageElement = document.createElement('img');
-    imageElement.src = imageUrl;
-
-    imageElement.onload = function() {
-        // Vérifier si le mode plein écran est pris en charge
-        if (document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled) {
-            // Demander le mode plein écran
-            if (imageElement.requestFullscreen) {
-                imageElement.requestFullscreen();
-            } else if (imageElement.webkitRequestFullscreen) { /* Safari */
-                imageElement.webkitRequestFullscreen();
-            } else if (imageElement.msRequestFullscreen) { /* IE11 */
-                imageElement.msRequestFullscreen();
-            }
-        } else {
-            console.log("Le mode plein écran n'est pas pris en charge dans ce navigateur.");
-        }
-    };
-}
-
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
