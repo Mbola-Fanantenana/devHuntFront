@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import config from "../../config.json";
 import FormModal from "../components/FormModal.jsx";
@@ -8,13 +8,16 @@ const Entraide = () => {
     const [dataChanged, setDataChanged] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [idModifier, setIdModifier] = useState('');
-
+    const [logo, setLogo] = useState(null);
+    const [userConnected, setUserConnected] = useState(null);
+    
     const initialeState = {
         logoEntraide: "",
         chefEntraide: "",
         detailEntraide: "",
         lienEntraide: "",
-        nomEntraide: ""
+        nomEntraide: "",
+        idUtilisateur: ""
     };
 
     const [formData, setFormData] = useState(initialeState);
@@ -35,6 +38,11 @@ const Entraide = () => {
         document.title = 'ENI Novice | Entraide'
     })
 
+    useEffect(() => {
+        const userLocaleStorage = localStorage.getItem("userSession");
+        setUserConnected(JSON.parse(userLocaleStorage).idUtilisateur);
+      }, []);
+
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setIdModifier('');
@@ -49,7 +57,7 @@ const Entraide = () => {
     }
 
     const handleInputChange = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
 
         setFormData({
             ...formData,
@@ -58,12 +66,17 @@ const Entraide = () => {
     };
 
     const handleSubmit = () => {
+        console.log(userConnected)
+        const formDataAppend = new FormData();
+        formDataAppend.append("logoEntraide", logo);
+        formDataAppend.append("chefEntraide", formData.chefEntraide);
+        formDataAppend.append("detailEntraide", formData.detailEntraide);
+        formDataAppend.append("lienEntraide", formData.lienEntraide);
+        formDataAppend.append("nomEntraide", formData.nomEntraide);
+        formDataAppend.append("idUtilisateur", userConnected);
+
         axios
-            .post(`${config.API_HOST}/api/createEntraide`, JSON.stringify(formData), {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
+            .post(`${config.API_HOST}/api/createEntraide`, formDataAppend)
             .then((response) => {
                 setFormData(initialeState);
                 setDataChanged(!dataChanged);
@@ -122,6 +135,11 @@ const Entraide = () => {
             });
     }
 
+    const imgURLChangeHandler = (e) => {
+        const file = e.target.files[0];
+        setLogo(file);
+    };
+
     return (
         <>
             <FormModal
@@ -178,12 +196,33 @@ const Entraide = () => {
                             value={formData.nomEntraide}
                         />
                     </div>
+                    <label htmlFor="fileInput" className="custome-file-upload">
+                        <input
+                            type="file"
+                            id="fileInput"
+                            className="hidden"
+                            onChange={imgURLChangeHandler}
+                        />
+                        <div className="flex items-center justify-center h-[100px] border border-dashed border-[#26393D] rounded-md">
+                            {logo ? (
+                                <img
+                                    src={URL.createObjectURL(logo)}
+                                    alt="Preview"
+                                    className="max-w-full max-h-full"
+                                />
+                            ) : (
+                                <p className="text-[#26393D]">
+                                    Cliquer ici pour ajouter une photo
+                                </p>
+                            )}
+                        </div>
+                    </label>
                 </form>
             </FormModal>
             <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md">
-                {/* <div>
+                <div>
                     <button className="px-4 py-2 rounded bg-emerald-500" onClick={handleOpenModal}>Ajouter</button>
-                </div> */}
+                </div>
 
                 <div className="max-w-full">
                     <h2 className="text-3xl font-bold tracking-tight text-[#007a55] sm:text-4xl">
@@ -196,13 +235,13 @@ const Entraide = () => {
             <div
                 role="list"
                 className="grid grid-cols-3 gap-3 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md"
-            >   
+            >
                 {entraide.map((club) => (
                     <div key={club.idEntraide}
-                         className="flex items-center p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg gap-x-6 backdrop-blur-md">
+                        className="flex items-center p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg gap-x-6 backdrop-blur-md">
                         <img
                             className="w-16 h-16 rounded-full"
-                            src={"https://hotelleriejobs.s3.amazonaws.com/news/15361/image_url/Capture_d_e_cran_2016-10-31_a__13.02.54.png"}
+                            src={`${config.API_HOST}/${club.logoEntraide}`}
                             alt=""
                         />
                         <div>
