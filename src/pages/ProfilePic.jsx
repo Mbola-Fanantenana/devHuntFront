@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import config from '../../config.json'
+import ErrorModal from "../components/ErrorModal";
 
 const ProfilePic = () => {
+    const navigate = useNavigate();
     const param = useParams();
     const [imgURL, setImgURL] = useState(null);
     const [zoom, setZoom] = useState(1);
     const [user, setUser] = useState('');
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         axios.get(`${config.API_HOST}/api/user/${param.idUtilisateur}`).then((response) => {
@@ -16,6 +19,10 @@ const ProfilePic = () => {
             console.log("Error occured getting user detail: " + error);
         });
     }, []);
+
+    const handleCloseErrorModal = () => {
+        setError(null);
+    };
 
     const handleZoomChange = (event) => {
         const newZoom = parseFloat(event.target.value);
@@ -30,15 +37,17 @@ const ProfilePic = () => {
     const submitActionHandler = (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append("imgUtilisateur", imgURL);
+        const formDataAppend = new FormData();
+        formDataAppend.append("imgUtilisateur", imgURL);
 
-        axios.put(`${config.API_HOST}/api/updateUser/${param.idUtilisateur}`, formData)
+        console.log(imgURL);
+
+        axios.patch(`${config.API_HOST}/api/updateUser/${param.idUtilisateur}`, formDataAppend)
             .then(() => {
-                console.log("modification mety");
+                navigate(`/login`);
             })
             .catch((error) => {
-                console.log("Une erreur est survenue lors de la modification.", error);
+                setError("An error occurred. Please try again later.");
             });
     };
 
@@ -56,11 +65,17 @@ const ProfilePic = () => {
                     <label htmlFor="fileInput" className="custom-file-upload">
                         <input type="file" id="fileInput" className="hidden" onChange={imgURLChangeHandler} />
                         <div className="flex items-center justify-center w-[250px] h-[250px] border border-dashed border-[#26393D] rounded-full overflow-hidden relative">
-                            {imgURL && (
-                                <img src={imgURL && URL.createObjectURL(imgURL)} alt="Preview" className="w-full h-full object-cover" style={{ transform: `scale(${zoom})` }} />
-                            )}
-                            {!imgURL && (
-                                <p className="text-[#26393D] text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">Cliquez ici pour ajouter l&#39;image.</p>
+                            {imgURL ? (
+                                <img
+                                    src={URL.createObjectURL(imgURL)}
+                                    alt="Preview"
+                                    className="w-full h-full object-cover"
+                                    style={{ transform: `scale(${zoom})` }}
+                                />
+                            ) : (
+                                <p className="text-[#26393D] text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">Cliquez ici pour ajouter l&#39;image
+                                    Cliquer ici pour ajouter une photo
+                                </p>
                             )}
                         </div>
                     </label>
@@ -81,6 +96,13 @@ const ProfilePic = () => {
                     <button type="submit" className="bg-[#007a55] hover:bg-emerald-800 py-2 px-4 rounded text-white">Importer</button>
                 </div>
             </form>
+            <ErrorModal
+                isOpen={error !== null}
+                onClose={handleCloseErrorModal}
+                titleMessage="Message d'erreur"
+            >
+                {error}
+            </ErrorModal>
         </div>
     );
 
