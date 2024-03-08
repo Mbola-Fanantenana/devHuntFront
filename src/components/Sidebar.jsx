@@ -89,9 +89,6 @@ const Sidebar = () => {
         >
           Forum
         </Link>
-        <button id="bobota" onClick={test}>
-          test
-        </button>
       </div>
       <SpeechRecognitionComponent onResult={handleSpeechResult} />
     </div>
