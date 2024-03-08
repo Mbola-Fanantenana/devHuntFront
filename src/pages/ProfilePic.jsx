@@ -1,9 +1,21 @@
-import { useState } from "react";
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Link, useParams } from 'react-router-dom'
+import config from '../../config.json'
 
 const ProfilePic = () => {
+    const param = useParams();
     const [imgURL, setImgURL] = useState(null);
     const [zoom, setZoom] = useState(1);
+    const [user, setUser] = useState('');
+
+    useEffect(() => {
+        axios.get(`${config.API_HOST}/api/user/${param.idUtilisateur}`).then((response) => {
+            setUser(response.data);
+        }).catch(error => {
+            console.log("Error occured getting user detail: " + error);
+        });
+    }, []);
 
     const handleFileInputChange = (event) => {
         const file = event.target.files[0];
@@ -17,15 +29,22 @@ const ProfilePic = () => {
         setZoom(newZoom);
     };
 
+
+
     return (
         <div className="bg-[#ddd] w-full h-screen flex items-center justify-center">
-            <div className="flex flex-col justify-center items-center p-4 m-2 bg-white bg-opacity-25 w-[60%] h-[65%] backdrop-blur-md shadow-lg rounded-lg space-y-2">
+            <form className="flex flex-col justify-center items-center p-4 m-2 bg-white bg-opacity-25 w-[60%] h-[70%] backdrop-blur-md shadow-lg rounded-lg space-y-2">
                 <h1 className="font-medium text-xl">Ajouter une photo de profil</h1>
                 <hr className="border-t border-slate-400 w-full" />
+                {user && (
+                    <>
+                        <p>{user.nomUtilisateur} {user.prenomUtilisateur}</p>
+                    </>
+                )}
                 <div className="w-1/2 flex justify-center relative">
                     <label htmlFor="fileInput" className="custom-file-upload">
                         <input type="file" id="fileInput" className="hidden" onChange={handleFileInputChange} />
-                        <div className="flex items-center justify-center w-[250px] h-[250px] border border-dashed border-[#26393D] rounded-full overflow-hidden relative">
+                        <div className="flex items-center justify-center w-[200px] h-[200px] border border-dashed border-[#26393D] rounded-full overflow-hidden relative">
                             {imgURL && (
                                 <img src={imgURL} alt="Preview" className="w-full h-full object-cover" style={{ transform: `scale(${zoom})` }} />
                             )}
@@ -48,9 +67,9 @@ const ProfilePic = () => {
                 <hr className="border-t border-slate-400 w-full" />
                 <div className="w-full flex justify-end space-x-2">
                     <Link to={'/login'} className="bg-slate-400 hover:bg-slate-600 py-2 px-4 rounded text-gray-900 hover:text-white">Plus tard</Link>
-                    <button className="bg-[#007a55] hover:bg-emerald-800 py-2 px-4 rounded text-white">Importer</button>
+                    <button type="submit" className="bg-[#007a55] hover:bg-emerald-800 py-2 px-4 rounded text-white">Importer</button>
                 </div>
-            </div>
+            </form>
         </div>
     );
 

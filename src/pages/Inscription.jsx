@@ -122,7 +122,7 @@ const Inscription = () => {
 
   const handleCloseSuccessModal = () => {
     setSuccess(null);
-    navigate('/photo-profil');
+    navigate('/photo-profil/${idUtilisateur}');
   };
 
   return (

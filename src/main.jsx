@@ -55,7 +55,7 @@ const router = createBrowserRouter([
     element: <FaceAuthentification />
   },
   {
-    path: '/photo-profil',
+    path: '/photo-profil/:idUtilisateur',
     element: <ProfilePic />
   },
   {
