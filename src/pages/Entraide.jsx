@@ -219,17 +219,15 @@ const Entraide = () => {
                     </label>
                 </form>
             </FormModal>
-            <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md">
+            <div className="flex justify-between p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md">
                 <div>
-                    <button className="px-4 py-2 rounded bg-emerald-500" onClick={handleOpenModal}>Ajouter</button>
+                    <button className="px-4 py-2 rounded bg-emerald-500 text-white" onClick={handleOpenModal}>Ajouter</button>
                 </div>
 
                 <div className="max-w-full">
                     <h2 className="text-3xl font-bold tracking-tight text-[#007a55] sm:text-4xl">
-                        Clubs existants à l'ENI
+                        Clubs existants à l&#39;ENI
                     </h2>
-                    <p className="mt-6 text-lg leading-8 text-gray-600">
-                    </p>
                 </div>
             </div>
             <div
