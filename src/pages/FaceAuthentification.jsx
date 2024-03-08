@@ -231,12 +231,15 @@ const FaceAuthentification = () => {
         }
     }, [])
 
+    useEffect(() => {
+        document.title = 'ENI Novice | Authentification'
+    })
 
     return (
         <div className="flex flex-col min-h-screen bg-[#ddd]">
             <div className="flex items-center justify-center flex-grow">
                 <div className='relative md:w-[40%] sm:w-[40%]'>
-                    <p className="absolute flex items-center mt-10 text-gray-600 opacity-50 text- xl:text-4xl sm:block xs:block backdrop-blur-lg">Découvrez la technologie differemment.</p>
+                    <p className="absolute flex items-center mt-10 text-[#323232] text- xl:text-4xl sm:block xs:block backdrop-blur-lg">Découvrez la technologie differemment.</p>
                     <div className={`relative xl:w-[100%] lg:w-[100%] md:w-[100%] sm:block xs:block`}>
                         <Lottie
                             animationData={LoginAnimation}
@@ -245,80 +248,81 @@ const FaceAuthentification = () => {
                             className="w-full h-auto"
                         />
                     </div>
-                    <p className="absolute flex items-center -mt-20 text-gray-600 text-opacity-50 xl:text-4xl sm:block backdrop-blur-lg">Au delà de votre imagination.</p>
+                    <p className="absolute flex items-center -mt-20 text-[#323232] xl:text-4xl sm:block backdrop-blur-lg">Au delà de votre imagination.</p>
                 </div>
-                <div className="relative w-full max-w-md p-8 border border-gray-200 rounded md:bg-white md:bg-opacity-80 sm:bg-white backdrop-blur-lg md:w-auto">
-                    <h2 className="text-3xl font-bold text-[#323232] mb-4">Connectez-vous</h2>
-                    <hr className="border-t border-[#323232] border-opacity-50 mb-2" />
-                    <form>
-                        <div className="mb-4">
-                            <label htmlFor="email" className="text-[#323232] block mb-1">Nom d&#39;utilisateur</label>
-                            <input
-                                className="w-full px-4 py-2 bg-opacity-50 rounded bg-slate-300 focus:outline-none focus:bg-opacity-80"
-                                name="pseudoUtilisateur"
-                                id="email"
-                                type="text"
-                                value={formData.pseudoUtilisateur}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <button
-                            onClick={valid}
-                            type="button"
-                            className="bg-[#007a55] w-full bg-opacity-60 hover:bg-opacity-80 text-white py-2 px-4 rounded focus:outline-none text-lg font-medium"
-                        >Suivant</button>
-                        <div className="w-full mb-4">
-                            <div className="relative flex flex-col items-center">
-
-                                <video
-                                    muted
-                                    autoPlay
-                                    ref={videoRef}
-                                    height={videoHeight}
-                                    width={videoWidth}
-                                    onPlay={scanFace}
-                                    style={{
-                                        objectFit: "fill",
-                                        height: "360px",
-                                        borderRadius: "10px",
-                                        display: localUserStream ? "block" : "none",
-                                    }}
-                                />
-                                <canvas
-                                    ref={canvasRef}
-                                    style={{
-                                        position: "absolute",
-                                        width: videoWidth, height: videoHeight,
-                                        display: localUserStream ? "block" : "none",
-                                    }}
+                <div className="space-y-3">
+                    <div className="relative w-full max-w-md p-8 border border-gray-200 rounded md:bg-white md:bg-opacity-80 sm:bg-white backdrop-blur-lg md:w-auto">
+                        <h2 className="text-3xl font-bold text-[#323232] mb-4">Connectez-vous</h2>
+                        <hr className="border-t border-[#323232] border-opacity-50 mb-2" />
+                        <form>
+                            <div className="mb-4">
+                                <label htmlFor="email" className="text-[#323232] block mb-1">Nom d&#39;utilisateur</label>
+                                <input
+                                    className="w-full px-4 py-2 bg-opacity-50 rounded bg-slate-300 focus:outline-none focus:bg-opacity-80"
+                                    name="pseudoUtilisateur"
+                                    id="email"
+                                    type="text"
+                                    value={formData.pseudoUtilisateur}
+                                    onChange={handleInputChange}
                                 />
                             </div>
-                        </div>
-                        {localUserStream && loginResult === "SUCCESS" && (
-                            <h2 className="text-sm font-extrabold tracking-tight text-center text-gray-900">
-                                <span className="block mt-2 text-indigo-600">
-                                    We've successfully recognize your face!
-                                </span>
-                                <span className="block mt-2 text-indigo-600">
-                                    Rester pendant {counter} quelques secondes
-                                </span>
-                            </h2>
-                        )}
-                        {!localUserStream && (
-                            <>
-                                {modelsLoaded && tempAccount ? (
-                                    <>
-                                        <button
-                                            onClick={getLocalUserVideo}
-                                            type="button"
-                                            className="flex justify-center items-center w-full py-2.5 px-5 mr-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg border border-gray-200 inline-flex items-center"
-                                        >
-                                            Scanner
-                                        </button>
-                                    </>
-                                ) : (
-                                    <>
-                                        {/* <button
+                            <button
+                                onClick={valid}
+                                type="button"
+                                className="bg-[#007a55] w-full bg-opacity-60 hover:bg-opacity-80 text-white py-2 px-4 rounded focus:outline-none text-lg font-medium"
+                            >Suivant</button>
+                            <div className="w-full mb-4">
+                                <div className="relative flex flex-col items-center">
+
+                                    <video
+                                        muted
+                                        autoPlay
+                                        ref={videoRef}
+                                        height={videoHeight}
+                                        width={videoWidth}
+                                        onPlay={scanFace}
+                                        style={{
+                                            objectFit: "fill",
+                                            height: "360px",
+                                            borderRadius: "10px",
+                                            display: localUserStream ? "block" : "none",
+                                        }}
+                                    />
+                                    <canvas
+                                        ref={canvasRef}
+                                        style={{
+                                            position: "absolute",
+                                            width: videoWidth, height: videoHeight,
+                                            display: localUserStream ? "block" : "none",
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            {localUserStream && loginResult === "SUCCESS" && (
+                                <h2 className="text-sm font-extrabold tracking-tight text-center text-gray-900">
+                                    <span className="block mt-2 text-indigo-600">
+                                        Votre visage a bien été reconnu !
+                                    </span>
+                                    <span className="block mt-2 text-indigo-600">
+                                        Rester pendant {counter} quelques secondes
+                                    </span>
+                                </h2>
+                            )}
+                            {!localUserStream && (
+                                <>
+                                    {modelsLoaded && tempAccount ? (
+                                        <>
+                                            <button
+                                                onClick={getLocalUserVideo}
+                                                type="button"
+                                                className="flex justify-center items-center w-full py-2.5 px-5 mr-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg border border-gray-200"
+                                            >
+                                                Scanner
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            {/* <button
                                             disabled
                                             type="button"
                                             className="cursor-not-allowed flex justify-center items-center w-full py-2.5 px-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 inline-flex items-center"
@@ -342,12 +346,20 @@ const FaceAuthentification = () => {
                                             </svg>
                                             Veuillez patienter pendant le chargement des modèles...
                                         </button> */}
-                                    </>
-                                )}
-                            </>
-                        )}
-                    </form>
-                    <p className="mt-4 text-[#323232]">Vous n&#39;avez pas de compte ? <Link to="/sign-up" className="text-[#007a55] hover:text-emerald-700">Inscrivez-vous</Link></p>
+                                        </>
+                                    )}
+                                </>
+                            )}
+                        </form>
+                        <p className="mt-4 text-[#323232]">Vous n&#39;avez pas de compte ? <Link to="/sign-up" className="text-[#007a55] hover:text-emerald-700">Inscrivez-vous</Link></p>
+                    </div>
+                    <div className="w-full py-2 flex justify-center">
+                        <Link
+                            className="bg-[#007a55] bg-opacity-60 hover:bg-opacity-80 text-white py-2 px-4 rounded focus:outline-none text-lg font-medium" to={'/login'}
+                        >
+                            Authentification
+                        </Link>
+                    </div>
                 </div>
                 <ErrorModal isOpen={error !== null} onClose={handleCloseErrorModal} titleMessage="Message d'erreur">
                     {error}
