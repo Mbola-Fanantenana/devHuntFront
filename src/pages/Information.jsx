@@ -99,17 +99,17 @@ const Information = () => {
       .get(`${config.API_HOST}/api/info/${id}`)
       .then((response) => {
         setFormData({
-          contenue: response.data.contenueInfo
+          contenue: response.data.contenueInfo,
         });
-        
-        setImgURL(response.data.imgInfo) 
-        console.log(response.data.imgInfo)
+
+        setImgURL(response.data.imgInfo);
+        console.log(response.data.imgInfo);
       })
       .catch((error) => {
         console.log(error);
       });
   };
-  
+
   const handleUpdate = () => {
     axios
       .patch(
@@ -131,7 +131,7 @@ const Information = () => {
         console.error(error);
       });
   };
-  
+
   const handleDelete = (idInfo) => {
     console.log(userConnected);
     axios
@@ -143,9 +143,9 @@ const Information = () => {
         console.log(error);
       });
   };
-  
+
   return (
-    <div className="flex flex-col min-h-screen p-2 bg-white ">
+    <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md">
       <div>
         <button
           className="px-4 py-2 rounded bg-emerald-500"
@@ -159,13 +159,13 @@ const Information = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onAction={() => {
-            if (idModifier === "") {
-              handleSubmit();
-            } else {
-              handleUpdate();
-            }
-          }}
-          actionLabel={idModifier === "" ? ("Ajouter") : ("Modifier")}
+          if (idModifier === "") {
+            handleSubmit();
+          } else {
+            handleUpdate();
+          }
+        }}
+        actionLabel={idModifier === "" ? "Ajouter" : "Modifier"}
         titleMessage="Créer info"
       >
         <form>
@@ -174,7 +174,7 @@ const Information = () => {
               Contenue de l&#39;information
             </label>
             <textarea
-              className="w-full px-4 py-2 bg-white bg-opacity-50 rounded-md focus:outline-none focus:bg-opacity-75"
+              className="w-full px-4 py-2 bg-white rounded-md bg-opacity-35 focus:outline-none focus:bg-opacity-75"
               name="contenueInfo"
               id="contenueInfo"
               onChange={contenueChangeHandler}
@@ -207,24 +207,27 @@ const Information = () => {
         </form>
       </FormModal>
       <div>
-        <div>
+        <div className="grid grid-cols-2 gap-3">
           {infos.map((item) => (
-              <ul
-                  onClick={() => setForumComment(item.idForum)}
-                  key={item.idInfo}
-                  className="p-4 my-4 border rounded-md shadow-md"
-              >
-                
-                <li className="mt-2">{item.contenueInfo}</li>
-                <li className="mt-2">
-                <img
-                  src={`${config.API_HOST}/uploads/${item.imgInfo}`}
-                  alt=""
-                  className="w-40 h-40 rounded-md"
-                />
-              </li>
-              <li className="mt-2">{item.heureInfo}</li>
-            </ul>
+            <div
+              onClick={() => setForumComment(item.idForum)}
+              key={item.idInfo}
+              className="flex-grow p-4 my-4 bg-white border rounded-md shadow-lg"
+            >
+              <div className="flex flex-row items-center">
+                <div className="flex-grow w-1/2">
+                  <div className="">{item.contenueInfo}</div>
+                  <div className="mt-2 font-semibold">{item.heureInfo}</div>
+                </div>
+                <div className="w-1/2 ml-4">
+                  <img
+                    src={`${config.API_HOST}/uploads/${item.imgInfo}`}
+                    alt=""
+                    className="w-56 h-56 rounded-md shadow-md"
+                  />
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
