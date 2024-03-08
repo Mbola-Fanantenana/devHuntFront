@@ -30,6 +30,7 @@ const Inscription = () => {
   const [formData, setFormData] = useState(initialFormState);
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
+  const [accountId, setAccountId] = useState(null);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -90,6 +91,7 @@ const Inscription = () => {
           .then((response) => {
             const accountId = response.data.idUtilisateur;
             console.log("ID du compte créé :", accountId);
+            setAccountId(accountId);
             setFormData(initialFormState);
             setCurrentStep(4);
             console.log("création compte réussie");
@@ -122,7 +124,7 @@ const Inscription = () => {
 
   const handleCloseSuccessModal = () => {
     setSuccess(null);
-    navigate('/photo-profil/${idUtilisateur}');
+    navigate(`/photo-profil/${accountId}`);
   };
 
   useEffect(() => {

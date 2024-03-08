@@ -9,8 +9,6 @@ const ProfilePic = () => {
     const [zoom, setZoom] = useState(1);
     const [user, setUser] = useState('');
 
-    console.log("env", import.meta.env.VITE_API_HOST);
-
     useEffect(() => {
         axios.get(`${config.API_HOST}/api/user/${param.idUtilisateur}`).then((response) => {
             setUser(response.data);
@@ -43,7 +41,6 @@ const ProfilePic = () => {
                 console.log("Une erreur est survenue lors de la modification.", error);
             });
     };
-
 
     return (
         <div className="bg-[#ddd] w-full h-screen flex items-center justify-center">
