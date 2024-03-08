@@ -419,7 +419,7 @@ const Forum = () => {
               >
               </textarea>
               <li className="flex items-center mt-2">
-                <div className={`${com === item.idForum ? 'visible' : 'hidden'}`}>
+                <div className={`${userConnected === item.idUtilisateur ? 'visible' : 'hidden'}`}>
                   <button
                     type="button"
 
