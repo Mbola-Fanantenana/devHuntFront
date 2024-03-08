@@ -10,33 +10,24 @@ const Sidebar = () => {
     
     switch (true) {
       case text.includes("responsable"):
-        console.log("Ouverture de quelque chose...");
-        navigate("/responsable");
+        window.location.href = '/responsable'
         break;
       case text.includes("information"):
-        console.log("Ouverture de quelque chose...");
-        navigate("/information");
+        window.location.href = '/information'
         break;
       case text.includes("entraide"):
-        navigate("/entraide");
+        window.location.href = '/entraide'
         break;
       case text.includes("forum"):
-        navigate("/forum");
+        window.location.href = '/forum'
         break;
       case text.includes("message"):
-        navigate("/message");
-        break;
-      case text.includes("bonjour"):
-        document.getElementById("bobota").click();
+        window.location.href = '/message'
         break;
       default:
         // Ajoutez un comportement par défaut si aucun cas ne correspond
         break;
     }
-  };
-
-  const test = () => {
-    console.log("bobota");
   };
 
   return (
@@ -89,9 +80,6 @@ const Sidebar = () => {
         >
           Forum
         </Link>
-        <button id="bobota" onClick={test}>
-          test
-        </button>
       </div>
       <SpeechRecognitionComponent onResult={handleSpeechResult} />
     </div>
