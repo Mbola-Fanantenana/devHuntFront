@@ -61,6 +61,10 @@ const Forum = () => {
       });
   }, [dataChanged]);
 
+  useEffect(() => {
+    document.title = 'ENI Novice | Forum'
+  })
+
   function getCurrentTime() {
     const now = new Date();
 
@@ -395,7 +399,7 @@ const Forum = () => {
                     </svg>
                     <span
                       className="rounded-full py-1 px-1 text-xs font-medium content-[''] top-[4%] right-[2%] translate-x-2/4 -translate-y-2/4 bg-[#ea4444] text-white min-w-[30px] min-h-[30px]">
-                        <span className="text-green-800 font-bold">{item.nombreComs}</span>
+                      <span className="text-green-800 font-bold">{item.nombreComs}</span>
                     </span>
                   </button>
                 </div>

@@ -40,7 +40,7 @@ const Navbar = () => {
 
   const handleConfirmAction = () => {
     console.log("Action confirmée !");
-    // handleLogout();
+    handleLogout();
     setIsModalOpen(false);
   };
 

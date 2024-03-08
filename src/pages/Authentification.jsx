@@ -83,6 +83,10 @@ const Authentification = () => {
         }
     }, [])
 
+    useEffect(() => {
+        document.title = 'ENI Novice | Authentification'
+    })
+
     return (
         <div className="bg-[#ddd] min-h-screen flex flex-col">
             <div className="flex items-center justify-center flex-grow">

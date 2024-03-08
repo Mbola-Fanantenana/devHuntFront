@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import img from '../assets/Image/novice.jpg'
 import reception from '../assets/Image/reception.jpg'
 import prof from '../assets/Image/prof.jpg'
@@ -24,6 +24,11 @@ const Responsable = () => {
         "Mr Guillante Gesazafy, Responsable parcours IG - Mr RALAIVAO Christian Responsable parcours GB - Mr Siaka Responsable parcours SR",
     },
   ];
+
+  useEffect(() => {
+    document.title = 'ENI Novice | Responsable'
+  })
+
 
   return (
     <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md">

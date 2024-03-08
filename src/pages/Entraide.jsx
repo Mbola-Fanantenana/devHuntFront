@@ -31,6 +31,10 @@ const Entraide = () => {
             });
     }, [dataChanged]);
 
+    useEffect(() => {
+        document.title = 'ENI Novice | Entraide'
+    })
+
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setIdModifier('');

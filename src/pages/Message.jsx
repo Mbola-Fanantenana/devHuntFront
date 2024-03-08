@@ -40,6 +40,10 @@ function Message() {
     }, [dataChanged]);
 
     useEffect(() => {
+        document.title = 'ENI Novice | Messages'
+    })
+
+    useEffect(() => {
         const fetchConversation = async () => {
             axios
                 .get(`${api.API_HOST}/api/getConversationDeuxUser/${recepteur}/${storedData.idUtilisateur}`)
