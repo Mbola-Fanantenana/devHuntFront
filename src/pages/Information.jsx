@@ -165,7 +165,7 @@ const Information = () => {
   };
 
   return (
-    <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md h-[530px] overflow-auto">
+    <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md h-[520px] overflow-auto no-scrollbar">
       <div>
         <button
           className="px-4 py-2 rounded bg-emerald-500"

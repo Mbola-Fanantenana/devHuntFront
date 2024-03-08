@@ -91,7 +91,7 @@ const Navbar = () => {
           to={"/profil"}
           className="text-white flex items-center bg-[#119877] bg-opacity-50 hover:bg-opacity-70 py-1 px-2 rounded-3xl"
         >
-          <img src={avatar} alt="" className="w-8 h-8 mr-2 rounded-full" />
+          <img src={avatar} alt="" className="w-8 h-8 mr-2 rounded-full border-2" />
           <h1 className="text-[#323232]">Bienvenue, <span className="font-medium">{pseudoUtilisateur}</span></h1>
         </Link>
         <div className="flex">
