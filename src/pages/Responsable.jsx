@@ -29,18 +29,17 @@ const Responsable = () => {
     document.title = 'ENI Novice | Responsable'
   })
 
-
   return (
-    <div className="flex-1 p-4 m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md">
+    <div className="flex-1 h-[520px] overflow-auto no-scrollbar m-2 bg-white bg-opacity-25 rounded-lg shadow-lg backdrop-blur-md">
       <div className="grid w-full max-w-2xl grid-cols-1 px-4 mx-auto gap-x-8 sm:px-6 sm:py-12 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
         <div className="w-full">
           <h2 className="text-3xl font-bold tracking-tight text-[#007a55] sm:text-4xl">
             Services existants à l&#39;ENI
           </h2>
 
-          <dl className="grid grid-cols-1 mt-16 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
+          <dl className="grid grid-cols-1 mt-8 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
             {features.map((feature) => (
-              <div key={feature.name} className="pt-4 border-t border-gray-200">
+              <div key={feature.name} className="pt-4 border-t bg-white shadow p-4 rounded border-gray-200">
                 <dt className="font-semibold text-gray-900">{feature.name}</dt>
                 <dd className="mt-2 text-sm text-gray-500">
                   {feature.description}
