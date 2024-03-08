@@ -241,7 +241,7 @@ const Information = () => {
             >
               <div className="flex flex-row items-center">
                 <div className="flex-grow w-1/2 space-y-32">
-                  <div className="">{item.contenueInfo}</div>
+                  <div className="text-justify">{item.contenueInfo}</div>
                   <div className="mt-2 font-semibold">{formatDate(item.dateInfo)} - {item.heureInfo}</div>
                 </div>
                 <div className="w-1/2 ml-4">
