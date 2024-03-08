@@ -32,6 +32,10 @@ const Information = () => {
       });
   }, [dataChanged]);
 
+  useEffect(() => {
+    document.title = "ENI Novice | Informations";
+  }, [])
+
   function getCurrentTime() {
     const now = new Date();
 
