@@ -241,8 +241,21 @@ const Information = () => {
             >
               <div className="flex flex-row items-center">
                 <div className="flex-grow w-1/2 space-y-32">
-                  <div className="text-justify">{item.contenueInfo}</div>
-                  <div className="mt-2 font-semibold">{formatDate(item.dateInfo)} - {item.heureInfo}</div>
+                  <div>
+                  {showMore ? (
+                    <p className="mt-2 text-justify">{item.contenueInfo}</p>
+                  ) : (
+                    <p className="mt-2 text-justify" style={{ maxHeight: "100px", overflow: "hidden" }}>
+                      {item.contenueInfo}
+                    </p>
+                  )}
+                  {item.contenueInfo.length > 50 && (
+                    <button onClick={toggleShowMore} className="text-green-500 hover:underline">
+                      {showMore ? "Voir moins" : "Voir plus"}
+                    </button>
+                  )}
+                </div>
+                  <div className="mt-2 text-[10px] font-semibold">{formatDate(item.dateInfo)} - {item.heureInfo}</div>
                 </div>
                 <div className="w-1/2 ml-4">
                   <img
