@@ -6,46 +6,8 @@ import config from '../../config.json';
 import Lottie from 'lottie-react';
 import LoginAnimation from '../assets/Lotties/login-animation.json';
 import * as faceapi from 'face-api.js';
-import Webcam from "react-webcam";
-
-const accounts = [
-    {
-        id: "374ed1e4-481b-4074-a26e-6137657c6e35",
-        fullName: "Bilal Gümüş",
-        email: "bilalgumus@gmail.com",
-        picture: "374ed1e4-481b-4074-a26e-6137657c6e35/1.jpg",
-    },
-    {
-        id: "43332f46-89a4-435c-880e-4d72bb51149a",
-        fullName: "Andrew Clark",
-        picture: "43332f46-89a4-435c-880e-4d72bb51149a/1.jpg",
-        email: "andrewwclark@example.com"
-    },
-    {
-        id: "b8476d8d-bd7e-405f-aa66-9a22a9727930",
-        fullName: "Amelia Miller",
-        picture: "/b8476d8d-bd7e-405f-aa66-9a22a9727930/1.jpg",
-        email: "ameliamiller@example.com"
-    },
-    {
-        id: "88421e2c-ca7a-4332-815f-6e12824e2d05",
-        fullName: "Sophia Smith",
-        picture: "/88421e2c-ca7a-4332-815f-6e12824e2d05/1.jpg",
-        email: "sophiasmith@example.com"
-    },
-    {
-        id: "0c2f5599-9296-4f94-97d5-e773043188ae",
-        fullName: "Emily Martinez",
-        picture: "/0c2f5599-9296-4f94-97d5-e773043188ae/1.jpg",
-        email: "emilyjane_martinez@hotmail.com"
-    },
-    {
-        id: "0c2f5599-9296-4f94-97d5-e45730453688ae",
-        fullName: "Rado",
-        picture: "/Rado/Rado.jpg",
-        email: "rado@gmail.com"
-    },
-];
+import ErrorModal from "../components/ErrorModal";
+import Toast from "../components/Toast";
 
 const FaceAuthentification = () => {
     //Variable d'etats
@@ -54,18 +16,21 @@ const FaceAuthentification = () => {
     const [modelsLoaded, setModelsLoaded] = useState(false);
     const [faceApiLoaded, setFaceApiLoaded] = useState(false);
     const [loginResult, setLoginResult] = useState("PENDING");
-    // const [imageError, setImageError] = useState(false);
+    //const [imageError, setImageError] = useState(false);
     const [counter, setCounter] = useState(5);
     const [labeledFaceDescriptors, setLabeledFaceDescriptors] = useState({});
     const videoRef = useRef();
     const canvasRef = useRef();
     const faceApiIntervalRef = useRef();
-    const videoWidth = 640;
+    const videoWidth = 440;
     const videoHeight = 360;
+    const [token,setToken]=useState();
+    const [error, setError] = useState(null);
+    const [imageURL, setImageURL] = useState('');
+    const [showToast, setShowToast] = useState(false);
     // a utiliser pour recuperer le token
     const initialFormState = ({
-        pseudoUtilisateur: '',
-        mdpUtilisateur: ''
+        pseudoUtilisateur: ''
     })
     const [formData, setFormData] = useState(initialFormState);
 
@@ -111,9 +76,9 @@ const FaceAuthentification = () => {
                 .getContext("2d")
                 .clearRect(0, 0, videoWidth, videoHeight);
             faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
-            faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
+           // faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
 
-            if (results.length > 0 && tempAccount.id === results[0].label) {
+            if (results.length > 0 && tempAccount.pseudoUtilisateur === results[0].label) {
                 setLoginResult("SUCCESS");
             } else {
                 setLoginResult("FAILED");
@@ -132,6 +97,10 @@ const FaceAuthentification = () => {
         await faceapi.nets.faceLandmark68Net.loadFromUri(uri);
         await faceapi.nets.faceRecognitionNet.loadFromUri(uri);
     };
+
+    const handleShowToast = () => {
+        setShowToast(true);
+    }; 
     // Navigation et obtention du token (code a modiflier)
     const navigate = useNavigate();
     useEffect(() => {
@@ -148,13 +117,17 @@ const FaceAuthentification = () => {
                 });
                 clearInterval(counterInterval);
                 clearInterval(faceApiIntervalRef.current);
-             
+                localStorage.setItem("token",JSON.stringify(token))
                 localStorage.setItem(
-                    "faceAuth",
-                    JSON.stringify({ status: true, account: tempAccount })
+                    "userSession",
+                    JSON.stringify(tempAccount)
                 );
                 setFormData(initialFormState);
-                navigate("/accueil", { replace: true });
+                handleShowToast()
+                setTimeout(() => (
+                navigate('/accueil')
+            ), 5000);
+
             }
 
             return () => clearInterval(counterInterval);
@@ -162,9 +135,8 @@ const FaceAuthentification = () => {
         else if (loginResult === "FAILED") {
             console.log("Erreur lors de la connexion");
         }
-        setCounter(5);
+        setCounter(3);
     }, [loginResult, counter]);
-    // mise a jour du tempAccount et lancement du  chargement des modeles si la camera est disponible
     useEffect(() => {
         if (tempAccount) {
             console.log(tempAccount);
@@ -184,30 +156,39 @@ const FaceAuthentification = () => {
         const descriptions = [];
         let img;
         try {
-            const imgPath =
-                tempAccount?.type === "CUSTOM"
-                    ? tempAccount.imgUtilisateur
-                    : // : import.meta.env.DEV
-                    // ? `/temp-accounts/${tempAccount.picture}`
-                    // : `/react-face-auth/temp-accounts/${tempAccount.picture}`;
-                    `/temp-accounts/${tempAccount.picture}`;
-
-            img = await faceapi.fetchImage(imgPath);
-        } catch {
-            setImageError(true);
+            const response = await axios.get(`${config.API_HOST}/api/getImage/${tempAccount.imgUtilisateur}`, {
+                responseType: 'arraybuffer',
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                },
+            });
+        
+            // Créez un objet Blob à partir du tableau d'octets
+            const blob = new Blob([response.data]);
+           // const imageURL = URL.createObjectURL(blob);
+        //setImageURL(imageURL);
+            // Utilisez la fonction bufferToImage avec le Blob créé
+            img = await faceapi.bufferToImage(blob);
+            
+        } catch (error) {
+            console.error("Erreur lors du chargement de l'image :", error);
+            setError("Impossible de charger votre photo ! Veuillez vous connecter avec votre mot de passe");
             return;
         }
+        
+    
         const detections = await faceapi
             .detectSingleFace(img)
             .withFaceLandmarks()
             .withFaceDescriptor();
-
+    
         if (detections) {
             descriptions.push(detections.descriptor);
         }
-        return new faceapi.LabeledFaceDescriptors(tempAccount.id, descriptions);
+        const label = String(tempAccount.pseudoUtilisateur)
+        return new faceapi.LabeledFaceDescriptors(label, descriptions);
     }
-
+    
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
@@ -219,15 +200,36 @@ const FaceAuthentification = () => {
 
     //axios maka anle data user
     const valid = async () => {
+        if (!formData.pseudoUtilisateur) {
+            setError("Les champs ne doivent pas être vides !");
+            return;
+        }
         console.log(formData.pseudoUtilisateur)
-        const filteredAccount = accounts.filter((acc) => acc.email === formData.pseudoUtilisateur);
-        if (filteredAccount.length > 0) {
-            setTempAccount(filteredAccount[0]);
-        } else {
-            console.error("Account not found for the entered email");
-            // Consider providing feedback to the user that the account was not found.
+        try{
+            const response = await axios.post(`${config.API_HOST}/api/faceAuth`, JSON.stringify(formData), 
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    },
+                },
+            );
+            console.log(response.data.user)
+            setTempAccount(response.data.user);
+            setToken(response.data.token);
+        }catch (error){
+            setError("Le nom d'utilisateur est incorrecte !");
         }
     };
+    const handleCloseErrorModal = () => {
+        setError(null);
+    }
+
+    useEffect(() => {
+        if(localStorage.getItem('token') !== null && localStorage.getItem('userSession') !== null) {
+            navigate('/accueil');
+        }
+    }, [])
 
 
     return (
@@ -347,8 +349,14 @@ const FaceAuthentification = () => {
                     </form>
                     <p className="mt-4 text-white">Vous n&#39;avez pas de compte ? <Link to="/sign-up" className="text-blue-300 hover:text-blue-400">Inscrivez-vous</Link></p>
                 </div>
+                <ErrorModal isOpen={error !== null} onClose={handleCloseErrorModal} titleMessage="Message d'erreur">
+                    {error}
+                </ErrorModal>
+                {showToast && (
+                    <Toast message="Vous êtes bien connecté(e) !" />
+                )}
             </div>
-            <Footer textColor="#eee" copyright="&copy; < Minds Merge /> - 2024" />
+            <Footer textColor="#323232" copyright="&copy; < Minds Merge /> - 2024" />
         </div >
     );
 }
