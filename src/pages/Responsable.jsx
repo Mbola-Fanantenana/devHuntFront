@@ -1,16 +1,16 @@
 import { useEffect } from "react";
-import img from '../assets/Image/novice.jpg'
-import reception from '../assets/Image/reception.jpg'
-import prof from '../assets/Image/prof.jpg'
-import rentree from '../assets/Image/rentree.jpg'
+import img from '../assets/Image/40eme.jpg'
+import basket from '../assets/Image/anniv.jpg'
+import prof from '../assets/Image/glo.jpg'
+import ecole from '../assets/Image/ecole.jpg'
 
 const Responsable = () => {
   const features = [
-    { name: "Administration", description: "Professeur MAHATODY Thomas - Directeur de L'Ecole Nationale d'Informatique" },
+    { name: "Administration", description: "Mr MAHATODY Thomas, Professeur - Directeur de L'Ecole Nationale d'Informatique" },
     {
       name: "Mention",
       description:
-        "Dr DIMBISOA William Germain, Responsable Mention IA - Maitre de Conférence RABETAFIKA Louis Haja, Responsable Mention",
+        "Mr DIMBISOA William Germain, Maître de Conférences, Responsable Mention IA - Mr RABETAFIKA Louis Haja, Maître de Conférences , Responsable Mention",
     },
     { name: "Scolarité", description: 'Md RABEMANANJARA Laura' },
     {
@@ -21,7 +21,7 @@ const Responsable = () => {
     {
       name: "Responsable Parcours",
       description:
-        "Mr Guillante Gesazafy, Responsable parcours IG - Mr RALAIVAO Christian Responsable parcours GB - Mr Siaka Responsable parcours SR",
+        "Mr Guillante Gesazafy, Enseignant chercheur, Responsable parcours IG - Mr RALAIVAO Christian, Enseignant chercheur Responsable parcours GB - Mr Siaka Responsable parcours SR",
     },
   ];
 
@@ -39,7 +39,7 @@ const Responsable = () => {
 
           <dl className="grid grid-cols-1 mt-8 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
             {features.map((feature) => (
-              <div key={feature.name} className="pt-4 border-t bg-white shadow p-4 rounded border-gray-200">
+              <div key={feature.name} className="p-4 pt-4 bg-white border-t border-gray-200 rounded shadow">
                 <dt className="font-semibold text-gray-900">{feature.name}</dt>
                 <dd className="mt-2 text-sm text-gray-500">
                   {feature.description}
@@ -55,7 +55,7 @@ const Responsable = () => {
             className="bg-gray-100 rounded-lg w-[300px] h-[300px]"
           />
           <img
-            src={reception}
+            src={basket}
             alt="Top down view of walnut card tray with embedded magnets and card groove."
             className="bg-gray-100 rounded-lg w-[300px] h-[300px]"
           />
@@ -65,7 +65,7 @@ const Responsable = () => {
             className="bg-gray-100 rounded-lg w-[300px] h-[300px]"
           />
           <img
-            src={rentree}
+            src={ecole}
             alt="Walnut card tray filled with cards and card angled in dedicated groove."
             className="bg-gray-100 rounded-lg w-[300px] h-[300px]"
           />
