@@ -48,7 +48,7 @@ const Sidebar = () => {
             }`}
         >
           <div className="1/5">
-            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
               <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
               <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
               <g id="SVGRepo_iconCarrier"> <g clipPath="url(#clip0_429_11217)">
@@ -86,7 +86,7 @@ const Sidebar = () => {
             }`}
         >
           <div className="w-1/5 flex justify-start">
-            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
               <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
               <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
               <g id="SVGRepo_iconCarrier">
@@ -95,8 +95,8 @@ const Sidebar = () => {
                     location.pathname === '/information' ? (
                       <>
                         <circle cx="12" cy="11.9999" r="9" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></circle>
-                        <rect x="12" y="8" width="0.01" height="0.01" stroke="#fff" strokeWidth="3.75" strokeLinejoin="round"></rect>
-                        <path d="M12 12V16" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                        <rect x="12" y="8" width="0.01" height="0.01" stroke="#279E81" strokeWidth="3.75" strokeLinejoin="round"></rect>
+                        <path d="M12 12V16" stroke="#279E81" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path>
                       </>
                     ) : (
                       <>
@@ -166,7 +166,7 @@ const Sidebar = () => {
             }`}
         >
           <div className="1/5">
-            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
               <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
               <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
               <g id="SVGRepo_iconCarrier">
@@ -175,8 +175,8 @@ const Sidebar = () => {
                     location.pathname === '/forum' ? (
                       <>
                         <path d="M3 5H21V17C21 18.1046 20.1046 19 19 19H5C3.89543 19 3 18.1046 3 17V5Z" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                        <path d="M7 14H10" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                        <path d="M7 10L17 10" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                        <path d="M7 14H10" stroke="#279E81" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                        <path d="M7 10L17 10" stroke="#279E81" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path>
                       </>
                     ) : (
                       <>
